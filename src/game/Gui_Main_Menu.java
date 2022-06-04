@@ -26,7 +26,6 @@ public class Gui_Main_Menu extends javax.swing.JFrame {
     private game_engine engine;
     private Gui_game_play GamePlay;
     private boolean IsTwoPlayerGame;
-    private boolean firsttime;
 
     /**
      * Creates new form 
@@ -39,7 +38,6 @@ public class Gui_Main_Menu extends javax.swing.JFrame {
     	getContentPane().setBackground(new Color(0, 128, 0));
         initComponents();
         
-        firsttime = true;
         this.engine = engine;
         this.GamePlay = GamePlay;
         this.IsTwoPlayerGame = false;
@@ -160,24 +158,17 @@ public class Gui_Main_Menu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void play_with_computerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_play_with_computerActionPerformed
-        // TODO add your handling code here:
+    private void play_with_computerActionPerformed(java.awt.event.ActionEvent evt) {
         
         engine.player1.set_name("COMPUTER");
         setVisible(false);
         GamePlay.setVisible(true);
         IsTwoPlayerGame = false;
         
-        if(firsttime){
-            Component frame = null;
-            JOptionPane.showMessageDialog(frame, "1.Click on Start Game Button to play the Game\n" 
-                                           + "2.Current Turn will be displyed at the top of the game window\n");
-            firsttime = false;
-        }
         
-    }//GEN-LAST:event_play_with_computerActionPerformed
+    }
 
     public boolean get_IsTwoPlayerGame(){
         return IsTwoPlayerGame;

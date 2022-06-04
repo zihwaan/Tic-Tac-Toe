@@ -755,10 +755,9 @@ public class Gui_game_play extends javax.swing.JFrame {
                 }
             }
         }
-    }//GEN-LAST:event_x1_y2ActionPerformed
+    }
 
-    private void x2_y0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_x2_y0ActionPerformed
-        // TODO add your handling code here:
+    private void x2_y0ActionPerformed(java.awt.event.ActionEvent evt) {
         if (IsGameRunning) {
             if (x2_y0.getText().isEmpty()) {
                 if (MainMenu.get_IsTwoPlayerGame()) {
@@ -889,7 +888,7 @@ public class Gui_game_play extends javax.swing.JFrame {
             }
 
         
-    }//GEN-LAST:event_MoveSuggestionActionPerformed
+    }
  }
     private void Blink_Button(final javax.swing.JButton b){
         Timer blinkTimer = new Timer(500, new ActionListener() {
