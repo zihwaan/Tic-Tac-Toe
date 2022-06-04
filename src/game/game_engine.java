@@ -1,20 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package game;
 
 import game.type.pieces;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
-/**
- *
- * @author advance
- * github profile : https://github.com/Saurabh1999 
- *
- */
 public class game_engine {
     
     public board Board;
