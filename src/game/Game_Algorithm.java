@@ -26,211 +26,175 @@ public class Game_Algorithm {
         this.TurnOfSKKU = TurnOfSKKU;
     }
     
-    public boolean IsMoveLeft(){
+    public boolean isNotFinish(){ // whether there are left pannel
         for(row = 0;row < Board.get_num_row();row++){
             for(column = 0;column < Board.get_num_column();column++){
                 if(Board.board[row][column] == pieces.emp)
                     return true;
             }
         }
-        
         return false;
     }
     
-    public int evaluate_score(int depth){
+    public int cal_score_If_Win(int input_cost){
         
-        // Checking for Rows for X or O victory.
-        pieces type = pieces.emp;
+        // Check for win of X or O.
+        pieces typeOfPiece = pieces.emp;
         for (row = 0; row < Board.get_num_row(); row++)
         {
-            type = Board.board[row][0];
+            typeOfPiece = Board.board[row][0];
             for(column = 0;column < Board.get_num_column();column++){
-                if(Board.board[row][column] != type)
+                if(Board.board[row][column] != typeOfPiece)
                     break;
             }
             
             if(column == Board.get_num_column()){
             
-                if(type == SKKU_Bot.get_o_x_emp())
-                    return 10 - depth;
-                else if(type == User_player.get_o_x_emp())
-                    return depth - 10;
+                if(typeOfPiece == SKKU_Bot.get_o_x_emp())
+                    return 10 - input_cost;
+                else if(typeOfPiece == User_player.get_o_x_emp())
+                    return input_cost - 10;
             }
         }
 
-        // Checking for Columns for X or O victory.
+        
         for (column = 0; column < Board.get_num_column(); column++)
         {
-            type = Board.board[0][column];
+            typeOfPiece = Board.board[0][column];
             for(row = 0;row < Board.get_num_row();row++){
-                if(Board.board[row][column] != type)
+                if(Board.board[row][column] != typeOfPiece)
                     break;
                 
             }
             
             if(row == Board.get_num_row()){
                             
-                if(type == SKKU_Bot.get_o_x_emp())
-                    return 10 - depth;
-                else if(type == User_player.get_o_x_emp())
-                    return depth - 10;
+                if(typeOfPiece == SKKU_Bot.get_o_x_emp())
+                    return 10 - input_cost;
+                else if(typeOfPiece == User_player.get_o_x_emp())
+                    return input_cost - 10;
             }
         }
 
-        // Checking for Diagonals for X or O victory.
-        type = Board.board[0][0];
+        typeOfPiece = Board.board[0][0];
         for(row = 0;row < Board.get_num_row();row++){
             
-            if(Board.board[row][row] != type)
+            if(Board.board[row][row] != typeOfPiece)
                 break;
             
         }
         if(row == Board.get_num_row()){
-            
-           
-            if(type == SKKU_Bot.get_o_x_emp())
-                return 10 - depth;
-            else if(type == User_player.get_o_x_emp())
-                    return depth - 10;
+            if(typeOfPiece == SKKU_Bot.get_o_x_emp())
+                return 10 - input_cost;
+            else if(typeOfPiece == User_player.get_o_x_emp())
+                    return input_cost - 10;
         }
         
         
         row = 0;
         column = Board.get_num_column()-1;
-        type = Board.board[row][column];
+        typeOfPiece = Board.board[row][column];
         while(column >= 0){
-            if(Board.board[row][column] != type)
+            if(Board.board[row][column] != typeOfPiece)
                 break;
             row++;
             column--;
         }
         
         if(column < 0){
-            
-            if(type == SKKU_Bot.get_o_x_emp())
-                return 10 - depth;
-            else if(type == User_player.get_o_x_emp())
-                    return depth - 10;
+            if(typeOfPiece == SKKU_Bot.get_o_x_emp())
+                return 10 - input_cost;
+            else if(typeOfPiece == User_player.get_o_x_emp())
+                return input_cost - 10;
         }
 
-        // Else if none of them have won then return 0
+        // If No one won, return 0.
         return 0; 
         
     }
     
-    public int minimax(boolean isMax,int depth)
+    public int recur_Cost_Func(int input_score, boolean is_Maximum)
     {
         
-        int score = evaluate_score(depth+1);
+        int score = cal_score_If_Win(input_score+1);
+        
+        // if win the game, return score.
+        if(score!=0) {
+        	return score;
+        }
 
-        // If Maximizer has won the game return his/her
-        // evaluated score
-        if (score > 0)
-            return score;
-
-        // If Minimizer has won the game return his/her
-        // evaluated score
-        if (score < 0)
-            return score;
-
-        // If there are no more moves and no winner then
-        // it is a tie
-        if (IsMoveLeft()==false)
+        // it is when draw is occur. return 0.
+        if (isNotFinish()==false) {
             return 0;
-
-        // If this maximizer's move
-        if (isMax)
+        }
+        
+        if (is_Maximum)
         {
             
-            int best = -1000;
-
-            // Traverse all cells
+            int maxVal = -1000;
+            
+            //check for all pannels
             for (int i = 0; i < Board.get_num_row(); i++)
             {
                 for (int j = 0; j< Board.get_num_column(); j++)
                 {
-                    // Check if cell is empty
+                    // if pannel is empty
                     if (Board.board[i][j] == pieces.emp)
                     {
-                        // Make the move
                         Board.board[i][j] = SKKU_Bot.get_o_x_emp();
-
-                        // Call minimax recursively and choose
-                        // the maximum value
-                        best = max(best , minimax(!isMax,depth+1));
-
-                        // Undo the move
+                        maxVal = max(maxVal , recur_Cost_Func(input_score+1,!is_Maximum)); // call recursive function
+                        //restore the movement.
                         Board.board[i][j] = pieces.emp;
                     }
                 }
             }
-            return best;
-        }
-
-        // If this minimizer's move
-        else
+            return maxVal;
+        }else
         {
-            int best = 1000;
+            int minVal = 1000;
 
-            // Traverse all cells
+            //check for all pannels
             for (int i = 0; i < Board.get_num_row(); i++)
             {
                 for (int j = 0; j < Board.get_num_column(); j++)
                 {
-                    // Check if cell is empty
+                	// if pannel is empty
                     if (Board.board[i][j] == pieces.emp)
                     {
-                        // Make the move
                         Board.board[i][j] = User_player.get_o_x_emp();
-
-                        // Call minimax recursively and choose
-                        // the minimum value
-                        best = min(best , minimax(!isMax,depth+1));
-
-                        // Undo the move
-                        Board.board[i][j] = pieces.emp;
+                        minVal = min(minVal , recur_Cost_Func(input_score+1,!is_Maximum));// call recursive function
+                        Board.board[i][j] = pieces.emp; //restore the movement.
                     }
                 }
             }
-            return best;
+            return minVal;
         }
     }
     
     public  int[] Calculate_Solution()
     {
-        
-        int result = -1000;
         int[] solution = new int[3];
         solution[0] = -1;
         solution[1] = -1;
         solution[2] = -1;
-        // Traverse all cells, evalutae minimax function for
-        // all empty cells. And return the cell with optimal
-        // value.
+        int result = -1000;
         
         System.out.println("****** SKKU Bot is evaluting the best possible move ******");
         Board.history += "****** SKKU Bot is evaluting the best possible move ******"+ "\n";
+        // while traveling all of pannels, calculate the optimal value of movement using recur Function
         for (int i = 0; i < Board.get_num_row(); i++)
         {
             for (int j = 0; j < Board.get_num_column(); j++)
             {
-                // Check if celll is empty
+                // if pannel is empty
                 if (Board.board[i][j] == pieces.emp)
                 {
-                    // Make the move
                     Board.board[i][j] = SKKU_Bot.get_o_x_emp();
-
-                    // compute evaluation function for this
-                    // move.
-                    int movement = minimax(false,0);
-                    // Undo the move
-               
+                    int movement = recur_Cost_Func(0,false); // call recur function
+                    // restore the movement
                     Board.board[i][j] = pieces.emp;
 
-                    // If the value of the current move is
-                    // more than the best value, then update
-                    // best/
-                    if (movement > result)
+                    if (movement > result) // if it find the better solution, update.
                     {
                         solution[0] = i;
                         solution[1] = j;

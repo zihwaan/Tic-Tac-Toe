@@ -19,9 +19,8 @@ public class Pannels {
     }
     
     public void reset(){ // this is the function that make board empty
-       int i,j;
-       for(i = 0; i < num_row; i++){
-           for(j = 0;j < num_column;j++){
+       for(int i = 0; i < num_row; i++){
+           for(int j = 0;j < num_column;j++){
                board[i][j] = pieces.emp;
            }
        }

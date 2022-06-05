@@ -1,6 +1,5 @@
 package game;
 
-import game.type_of_pannel.pieces;
 import java.awt.Color;
 import java.awt.Component;
 import java.io.FileWriter;
@@ -34,8 +33,6 @@ public class Gui_play_of_game extends javax.swing.JFrame {
 
     private void init() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         Pannel_Board = new javax.swing.JPanel();
         Pannel1 = new javax.swing.JPanel();
         Pannel1.setBounds(0, 0, 98, 99);
@@ -601,7 +598,7 @@ public class Gui_play_of_game extends javax.swing.JFrame {
 
     private void user_move() {
 
-        point = GA.evaluate_score(0);
+        point = GA.cal_score_If_Win(0);
         setSKKUTurn();
         if (point > 0) {
             
@@ -629,7 +626,7 @@ public class Gui_play_of_game extends javax.swing.JFrame {
 
         }
 
-        if (!GA.IsMoveLeft()) {
+        if (!GA.isNotFinish()) {
             JOptionPane.showMessageDialog(frame, "It's Draw");
            
         }
@@ -638,67 +635,51 @@ public class Gui_play_of_game extends javax.swing.JFrame {
 
     private void skku_move() {
 
-        int[] bestMove = new int[3];
+        int[] SolutionMove = new int[3];
 
         if (GA.get_TurnOfSKKU()) {
 
-            bestMove = GA.Calculate_Solution();
+            SolutionMove = GA.Calculate_Solution();
 
-            if (bestMove[2] == -1) {
+            if (SolutionMove[2] == -1) {
                 System.out.println("Game Draw");
                 GA.Board.history +="Game Draw\n";
                 JOptionPane.showMessageDialog(frame,
                         "It's Draw");
             } else {
 
-                if (bestMove[0] == 0 && bestMove[1] == 0) {
+                if (SolutionMove[0] == 0 && SolutionMove[1] == 0) {
                     GA.Board.board[0][0] = GA.SKKU_Bot.get_o_x_emp();
                     pannel1.setText(GA.SKKU_Bot.get_o_x_emp().toString());
 
-                }
-
-                if (bestMove[0] == 1 && bestMove[1] == 0) {
+                }else if (SolutionMove[0] == 1 && SolutionMove[1] == 0) {
                     GA.Board.board[1][0] = GA.SKKU_Bot.get_o_x_emp();
                     pannel2.setText(GA.SKKU_Bot.get_o_x_emp().toString());
-                }
-
-                if (bestMove[0] == 2 && bestMove[1] == 0) {
+                }else if (SolutionMove[0] == 2 && SolutionMove[1] == 0) {
                     GA.Board.board[2][0] = GA.SKKU_Bot.get_o_x_emp();
                     pannel3.setText(GA.SKKU_Bot.get_o_x_emp().toString());
-                }
-
-                if (bestMove[0] == 0 && bestMove[1] == 1) {
+                }else if (SolutionMove[0] == 0 && SolutionMove[1] == 1) {
                     GA.Board.board[0][1] = GA.SKKU_Bot.get_o_x_emp();
                     pannel4.setText(GA.SKKU_Bot.get_o_x_emp().toString());
-                }
-
-                if (bestMove[0] == 1 && bestMove[1] == 1) {
+                }else if (SolutionMove[0] == 1 && SolutionMove[1] == 1) {
                     GA.Board.board[1][1] = GA.SKKU_Bot.get_o_x_emp();
                     pannel5.setText(GA.SKKU_Bot.get_o_x_emp().toString());
-                }
-
-                if (bestMove[0] == 2 && bestMove[1] == 1) {
+                }else if (SolutionMove[0] == 2 && SolutionMove[1] == 1) {
                     GA.Board.board[2][1] = GA.SKKU_Bot.get_o_x_emp();
                     pannel6.setText(GA.SKKU_Bot.get_o_x_emp().toString());
-                }
-
-                if (bestMove[0] == 0 && bestMove[1] == 2) {
+                }else if (SolutionMove[0] == 0 && SolutionMove[1] == 2) {
                     GA.Board.board[0][2] = GA.SKKU_Bot.get_o_x_emp();
                     pannel7.setText(GA.SKKU_Bot.get_o_x_emp().toString());
-                }
-
-                if (bestMove[0] == 1 && bestMove[1] == 2) {
+                }else if (SolutionMove[0] == 1 && SolutionMove[1] == 2) {
                     GA.Board.board[1][2] = GA.SKKU_Bot.get_o_x_emp();
                     pannel8.setText(GA.SKKU_Bot.get_o_x_emp().toString());
-                }
-
-                if (bestMove[0] == 2 && bestMove[1] == 2) {
+                }else if (SolutionMove[0] == 2 && SolutionMove[1] == 2) {
                     GA.Board.board[2][2] = GA.SKKU_Bot.get_o_x_emp();
                     pannel9.setText(GA.SKKU_Bot.get_o_x_emp().toString());
                 }
 
                 setUserTurn();
-                point = GA.evaluate_score(0);
+                point = GA.cal_score_If_Win(0);
                 if (point > 0) {
                     System.out.println("Player1 Wins");
                     GA.Board.history +="Player1 Wins\n";
@@ -709,7 +690,7 @@ public class Gui_play_of_game extends javax.swing.JFrame {
                             "You lose..");
 
                 }
-                if (!GA.IsMoveLeft()) {
+                if (!GA.isNotFinish()) {
                     JOptionPane.showMessageDialog(frame, "It's Draw");
                 
                    
@@ -759,8 +740,6 @@ public class Gui_play_of_game extends javax.swing.JFrame {
     private javax.swing.JPanel Pannel5;
     private javax.swing.JPanel Pannel6B;
     private javax.swing.JPanel Pannel6;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton pannel1;
     private javax.swing.JButton pannel4;
     private javax.swing.JButton pannel7;
