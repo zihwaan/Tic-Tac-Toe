@@ -2,13 +2,13 @@ package game;
 
 import game.type.pieces;
 
-public class player {
+public class User {
     
     private String name;
     private int total_wins;
     private pieces piece_type;
     
-    public player(pieces piece_type) {
+    public User(pieces piece_type) {
         total_wins = 0;
         this.piece_type = piece_type;
     }

@@ -4,19 +4,17 @@ import game.type.pieces;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
-public class game_engine {
+public class Game_Algorithm {
     
-    public board Board;
-    public player player1,player2;
+    public Pannels Board;
+    public User player1,player2;
     private int row,col;
-    private int depth;
     private boolean IsPlayer1Turn;
     
-    public game_engine(board Board,player p1,player p2){
+    public Game_Algorithm(Pannels Board,User p1,User p2){
         this.Board = Board;
         this.player1 = p1;
         this.player2 = p2;
-        this.depth = 0;
         IsPlayer1Turn = true;
     }
     
@@ -29,9 +27,9 @@ public class game_engine {
     }
     
     public boolean IsMoveLeft(){
-        for(row = 0;row < Board.get_no_of_rows();row++){
-            for(col = 0;col < Board.get_no_of_coloumns();col++){
-                if(Board.game_board[row][col] == pieces.emp)
+        for(row = 0;row < Board.get_num_row();row++){
+            for(col = 0;col < Board.get_num_column();col++){
+                if(Board.board[row][col] == pieces.emp)
                     return true;
             }
         }
@@ -43,15 +41,15 @@ public class game_engine {
         
         // Checking for Rows for X or O victory.
         pieces type = pieces.emp;
-        for (row = 0; row < Board.get_no_of_rows(); row++)
+        for (row = 0; row < Board.get_num_row(); row++)
         {
-            type = Board.game_board[row][0];
-            for(col = 0;col < Board.get_no_of_coloumns();col++){
-                if(Board.game_board[row][col] != type)
+            type = Board.board[row][0];
+            for(col = 0;col < Board.get_num_column();col++){
+                if(Board.board[row][col] != type)
                     break;
             }
             
-            if(col == Board.get_no_of_coloumns()){
+            if(col == Board.get_num_column()){
             
                 if(type == player1.get_piece_type())
                     return 10 - depth;
@@ -61,16 +59,16 @@ public class game_engine {
         }
 
         // Checking for Columns for X or O victory.
-        for (col = 0; col < Board.get_no_of_coloumns(); col++)
+        for (col = 0; col < Board.get_num_column(); col++)
         {
-            type = Board.game_board[0][col];
-            for(row = 0;row < Board.get_no_of_rows();row++){
-                if(Board.game_board[row][col] != type)
+            type = Board.board[0][col];
+            for(row = 0;row < Board.get_num_row();row++){
+                if(Board.board[row][col] != type)
                     break;
                 
             }
             
-            if(row == Board.get_no_of_rows()){
+            if(row == Board.get_num_row()){
                             
                 if(type == player1.get_piece_type())
                     return 10 - depth;
@@ -80,14 +78,14 @@ public class game_engine {
         }
 
         // Checking for Diagonals for X or O victory.
-        type = Board.game_board[0][0];
-        for(row = 0;row < Board.get_no_of_rows();row++){
+        type = Board.board[0][0];
+        for(row = 0;row < Board.get_num_row();row++){
             
-            if(Board.game_board[row][row] != type)
+            if(Board.board[row][row] != type)
                 break;
             
         }
-        if(row == Board.get_no_of_rows()){
+        if(row == Board.get_num_row()){
             
            
             if(type == player1.get_piece_type())
@@ -98,10 +96,10 @@ public class game_engine {
         
         
         row = 0;
-        col = Board.get_no_of_coloumns()-1;
-        type = Board.game_board[row][col];
+        col = Board.get_num_column()-1;
+        type = Board.board[row][col];
         while(col >= 0){
-            if(Board.game_board[row][col] != type)
+            if(Board.board[row][col] != type)
                 break;
             row++;
             col--;
@@ -147,22 +145,22 @@ public class game_engine {
             int best = -1000;
 
             // Traverse all cells
-            for (int i = 0; i < Board.get_no_of_rows(); i++)
+            for (int i = 0; i < Board.get_num_row(); i++)
             {
-                for (int j = 0; j< Board.get_no_of_coloumns(); j++)
+                for (int j = 0; j< Board.get_num_column(); j++)
                 {
                     // Check if cell is empty
-                    if (Board.game_board[i][j] == pieces.emp)
+                    if (Board.board[i][j] == pieces.emp)
                     {
                         // Make the move
-                        Board.game_board[i][j] = player1.get_piece_type();
+                        Board.board[i][j] = player1.get_piece_type();
 
                         // Call minimax recursively and choose
                         // the maximum value
                         best = max(best , minimax(!isMax,depth+1));
 
                         // Undo the move
-                        Board.game_board[i][j] = pieces.emp;
+                        Board.board[i][j] = pieces.emp;
                     }
                 }
             }
@@ -175,22 +173,22 @@ public class game_engine {
             int best = 1000;
 
             // Traverse all cells
-            for (int i = 0; i < Board.get_no_of_rows(); i++)
+            for (int i = 0; i < Board.get_num_row(); i++)
             {
-                for (int j = 0; j < Board.get_no_of_coloumns(); j++)
+                for (int j = 0; j < Board.get_num_column(); j++)
                 {
                     // Check if cell is empty
-                    if (Board.game_board[i][j] == pieces.emp)
+                    if (Board.board[i][j] == pieces.emp)
                     {
                         // Make the move
-                        Board.game_board[i][j] = player2.get_piece_type();
+                        Board.board[i][j] = player2.get_piece_type();
 
                         // Call minimax recursively and choose
                         // the minimum value
                         best = min(best , minimax(!isMax,depth+1));
 
                         // Undo the move
-                        Board.game_board[i][j] = pieces.emp;
+                        Board.board[i][j] = pieces.emp;
                     }
                 }
             }
@@ -211,22 +209,22 @@ public class game_engine {
         // value.
         
         System.out.println("Computer is evaluting the best possible move.......");
-        for (int i = 0; i < Board.get_no_of_rows(); i++)
+        for (int i = 0; i < Board.get_num_row(); i++)
         {
-            for (int j = 0; j < Board.get_no_of_coloumns(); j++)
+            for (int j = 0; j < Board.get_num_column(); j++)
             {
                 // Check if celll is empty
-                if (Board.game_board[i][j] == pieces.emp)
+                if (Board.board[i][j] == pieces.emp)
                 {
                     // Make the move
-                    Board.game_board[i][j] = player1.get_piece_type();
+                    Board.board[i][j] = player1.get_piece_type();
 
                     // compute evaluation function for this
                     // move.
                     int moveVal = minimax(false,0);
                     // Undo the move
                
-                    Board.game_board[i][j] = pieces.emp;
+                    Board.board[i][j] = pieces.emp;
 
                     // If the value of the current move is
                     // more than the best value, then update

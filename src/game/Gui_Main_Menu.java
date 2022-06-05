@@ -23,7 +23,7 @@ import java.awt.Font;
 
 public class Gui_Main_Menu extends javax.swing.JFrame {
 
-    private game_engine engine;
+    private Game_Algorithm engine;
     private Gui_game_play GamePlay;
     private boolean IsTwoPlayerGame;
 
@@ -32,7 +32,7 @@ public class Gui_Main_Menu extends javax.swing.JFrame {
      * @param player1
     
      */
-    public Gui_Main_Menu(game_engine engine,Gui_game_play GamePlay) {
+    public Gui_Main_Menu(Game_Algorithm engine,Gui_game_play GamePlay) {
     	setResizable(false);
     	setAutoRequestFocus(false);
     	getContentPane().setBackground(new Color(0, 128, 0));
