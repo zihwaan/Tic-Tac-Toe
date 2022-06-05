@@ -1,16 +1,7 @@
 package game;
 
-import java.awt.Component;
-import java.awt.Desktop;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import java.awt.Color;
-import java.awt.Toolkit;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
 import javax.swing.JLabel;
@@ -23,42 +14,50 @@ import java.awt.Font;
 
 public class Gui_manu_of_game extends javax.swing.JFrame {
 
-    private Game_Algorithm engine;
+    private Game_Algorithm GA;
     private Gui_play_of_game GamePlay;
-    private boolean IsTwoPlayerGame;
 
     public Gui_manu_of_game(Game_Algorithm engine,Gui_play_of_game GamePlay) {
     	setResizable(false);
     	setAutoRequestFocus(false);
     	getContentPane().setBackground(new Color(0, 128, 0));
-        initComponents();
+        Init();
         
-        this.engine = engine;
+        this.GA = engine;
         this.GamePlay = GamePlay;
-        this.IsTwoPlayerGame = false;
     }
 
-    private void initComponents() {
-
-        jPanel1 = new javax.swing.JPanel();
-        play_with_computer = new javax.swing.JButton();
-        play_with_computer.setForeground(new Color(0, 0, 128));
-        play_with_computer.setBackground(new Color(0, 191, 255));
-        welcome = new javax.swing.JLabel();
-        welcome.setHorizontalAlignment(SwingConstants.CENTER);
+    private void Init() {
+        Title = new javax.swing.JLabel();
+        Title.setHorizontalAlignment(SwingConstants.CENTER);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Main Menu");
+        setTitle("SKKU - Sam-Mok");
         setBackground(new java.awt.Color(224, 187, 149));
 
-        jPanel1.setBackground(new java.awt.Color(240, 242, 241));
-
-        play_with_computer.setText("Play with AI");
-        play_with_computer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                play_with_computerActionPerformed(evt);
-            }
-        });
+        Title.setFont(new Font("Arial", Font.BOLD, 36)); 
+        Title.setForeground(new Color(255, 255, 0));
+        Title.setText("SKKU Sam-mok Game with AI");
+        Title.setToolTipText("");
+        
+        JLabel poxox = new JLabel();
+        poxox.setIcon(new ImageIcon(getClass().getResource("poxox.png")));
+        
+        JLabel oxox = new JLabel();
+        oxox.setIcon(new ImageIcon(getClass().getResource("oxox.png")));
+        
+        JLabel skku_logo = new JLabel();
+        skku_logo.setIcon(new ImageIcon(getClass().getResource("skku.png")));
+        Game_start = new javax.swing.JButton();
+        Game_start.setForeground(new Color(0, 0, 128));
+        Game_start.setBackground(new Color(0, 191, 255));
+        
+                Game_start.setText("Play with AI");
+                Game_start.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        start_with_AI(evt);
+                    }
+                });
         
         JButton Info_game = new JButton();
         Info_game.setText("Information about this game");
@@ -73,103 +72,65 @@ public class Gui_manu_of_game extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1Layout.setHorizontalGroup(
-        	jPanel1Layout.createParallelGroup(Alignment.TRAILING)
-        		.addGroup(jPanel1Layout.createSequentialGroup()
-        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
-        				.addGroup(Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-        					.addGap(25)
-        					.addComponent(play_with_computer, GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE))
-        				.addGroup(Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-        					.addContainerGap(25, Short.MAX_VALUE)
-        					.addComponent(Info_game, GroupLayout.PREFERRED_SIZE, 547, GroupLayout.PREFERRED_SIZE)))
-        			.addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-        	jPanel1Layout.createParallelGroup(Alignment.LEADING)
-        		.addGroup(jPanel1Layout.createSequentialGroup()
-        			.addGap(43)
-        			.addComponent(play_with_computer, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
-        			.addGap(35)
-        			.addComponent(Info_game, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
-        			.addContainerGap(49, Short.MAX_VALUE))
-        );
-        jPanel1.setLayout(jPanel1Layout);
-
-        welcome.setFont(new Font("Arial", Font.BOLD, 36)); 
-        welcome.setForeground(new Color(255, 255, 0));
-        welcome.setText("SKKU Sam-mok Game with AI");
-        welcome.setToolTipText("");
-        
-        JLabel lblNewLabel = new JLabel();
-        lblNewLabel.setIcon(new ImageIcon(getClass().getResource("poxox.png")));
-        
-        JLabel lblNewLabel_1 = new JLabel();
-        lblNewLabel_1.setIcon(new ImageIcon(getClass().getResource("oxox.png")));
-        
-        JLabel lblNewLabel_3 = new JLabel();
-        lblNewLabel_3.setIcon(new ImageIcon(getClass().getResource("skku.png")));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         layout.setHorizontalGroup(
         	layout.createParallelGroup(Alignment.TRAILING)
         		.addGroup(layout.createSequentialGroup()
-        			.addGap(152)
-        			.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 134, GroupLayout.PREFERRED_SIZE)
-        			.addGap(239)
-        			.addComponent(lblNewLabel_3, GroupLayout.PREFERRED_SIZE, 208, GroupLayout.PREFERRED_SIZE)
-        			.addPreferredGap(ComponentPlacement.RELATED, 250, Short.MAX_VALUE)
-        			.addComponent(lblNewLabel_1)
-        			.addGap(96))
-        		.addGroup(layout.createSequentialGroup()
-        			.addContainerGap(336, Short.MAX_VALUE)
-        			.addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, 584, GroupLayout.PREFERRED_SIZE)
-        			.addGap(287))
-        		.addGroup(layout.createSequentialGroup()
         			.addContainerGap(377, Short.MAX_VALUE)
-        			.addComponent(welcome)
+        			.addComponent(Title)
         			.addGap(319))
+        		.addGroup(Alignment.LEADING, layout.createSequentialGroup()
+        			.addGroup(layout.createParallelGroup(Alignment.TRAILING)
+        				.addGroup(layout.createSequentialGroup()
+        					.addGap(152)
+        					.addComponent(poxox, GroupLayout.PREFERRED_SIZE, 134, GroupLayout.PREFERRED_SIZE)
+        					.addGap(239)
+        					.addComponent(skku_logo, GroupLayout.PREFERRED_SIZE, 208, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED, 258, Short.MAX_VALUE))
+        				.addGroup(Alignment.LEADING, layout.createSequentialGroup()
+        					.addGap(330)
+        					.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        						.addComponent(Game_start, GroupLayout.PREFERRED_SIZE, 547, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(Info_game, GroupLayout.PREFERRED_SIZE, 547, GroupLayout.PREFERRED_SIZE))
+        					.addGap(114)))
+        			.addComponent(oxox)
+        			.addGap(96))
         );
         layout.setVerticalGroup(
         	layout.createParallelGroup(Alignment.LEADING)
         		.addGroup(layout.createSequentialGroup()
-        			.addGap(51)
-        			.addComponent(welcome, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)
-        			.addGap(18)
-        			.addComponent(lblNewLabel_3, GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
-        			.addGap(18)
-        			.addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)
-        			.addGap(129))
-        		.addGroup(layout.createSequentialGroup()
         			.addGap(119)
-        			.addComponent(lblNewLabel_1, GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+        			.addComponent(oxox, GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
         			.addGap(369))
         		.addGroup(layout.createSequentialGroup()
-        			.addGap(157)
-        			.addComponent(lblNewLabel)
-        			.addContainerGap(405, Short.MAX_VALUE))
+        			.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        				.addGroup(layout.createSequentialGroup()
+        					.addGap(51)
+        					.addComponent(Title, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)
+        					.addGap(18)
+        					.addComponent(skku_logo, GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+        					.addGap(61))
+        				.addGroup(layout.createSequentialGroup()
+        					.addGap(157)
+        					.addComponent(poxox)
+        					.addGap(118)))
+        			.addGap(17)
+        			.addComponent(Game_start, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
+        			.addGap(43)
+        			.addComponent(Info_game, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
+        			.addContainerGap(243, Short.MAX_VALUE))
         );
         getContentPane().setLayout(layout);
 
         pack();
     }
 
-    private void play_with_computerActionPerformed(java.awt.event.ActionEvent evt) {
-        
-        engine.player1.set_name("COMPUTER");
+    private void start_with_AI(java.awt.event.ActionEvent evt) {
         setVisible(false);
         GamePlay.setVisible(true);
-        IsTwoPlayerGame = false;
-        
-        
+        GA.SKKU_Bot.set_name("SKKU_Bot");
     }
 
-    public boolean get_IsTwoPlayerGame(){
-        return IsTwoPlayerGame;
-        
-    }
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton play_with_computer;
-    private javax.swing.JLabel welcome;
+    private javax.swing.JButton Game_start;
+    private javax.swing.JLabel Title;
 }

@@ -5,6 +5,7 @@ import game.type_of_pannel.pieces;
 public class Pannels {
 	
 	public pieces [][] board;
+	public String history;
     private final int num_row;
     private final int num_column;
    
@@ -24,6 +25,7 @@ public class Pannels {
                board[i][j] = pieces.emp;
            }
        }
+       history = "";
     }
     
     public int get_num_row(){ //getter of num_row

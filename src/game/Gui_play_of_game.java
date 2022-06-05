@@ -3,12 +3,8 @@ package game;
 import game.type_of_pannel.pieces;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
+import java.io.FileWriter;
 import javax.swing.JOptionPane;
-import javax.swing.Timer;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.GroupLayout.Alignment;
@@ -16,412 +12,341 @@ import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
-import java.awt.Dialog.ModalExclusionType;
-import java.awt.Window.Type;
 
 public class Gui_play_of_game extends javax.swing.JFrame {
 
     private Gui_manu_of_game MainMenu;
-    private Game_Algorithm engine;
-    private boolean IsGameRunning;
-    private int curr_score;
+    private Game_Algorithm GA;
+    private int point;
     private Component frame = null;
-    private int gamecount;
-    private String color;
 
     public Gui_play_of_game(Game_Algorithm engine) {
     	setBackground(Color.BLACK);
     	getContentPane().setBackground(new Color(144, 238, 144));
     	setResizable(false);
-        color = "NONE";
-        initComponents();
-        this.engine = engine;
-        MainMenu = new Gui_manu_of_game(this.engine, this);
+        init();
+        this.GA = engine;
+        MainMenu = new Gui_manu_of_game(this.GA, this);
         MainMenu.setVisible(true);
-        IsGameRunning = false;
-        engine.set_IsPlayer1Turn(false);
-        gamecount = 0;
-        if (ChoosePieceType.getSelectedItem().toString().equalsIgnoreCase("X")) {
-            engine.player2.set_o_x_emp(pieces.X);
-            engine.player1.set_o_x_emp(pieces.O);
-        } else {
-            engine.player2.set_o_x_emp(pieces.O);
-            engine.player1.set_o_x_emp(pieces.X);
-        }
-        if (engine.get_IsPlayer1Turn()) {
-            CurrentTurn.setText("Opponent's");
-            CurrentTurn.setForeground(new java.awt.Color(240, 84, 84));
-        } else {
-            CurrentTurn.setText("Your's");
-            CurrentTurn.setForeground(new java.awt.Color(51, 111, 44));
-        }
-        
-        
+        engine.set_TurnOfSKKU(false);
+                
     }
 
-    private void initComponents() {
+    private void init() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel2.setBounds(0, 0, 98, 99);
-        x0_y0 = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel3.setBounds(98, 0, 98, 98);
-        x0_y1 = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel4.setBounds(196, 0, 98, 98);
-        x0_y2 = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
-        jPanel5.setBounds(0, 99, 98, 98);
-        x1_y0 = new javax.swing.JButton();
-        jPanel6 = new javax.swing.JPanel();
-        jPanel6.setBounds(0, 197, 98, 98);
-        x2_y0 = new javax.swing.JButton();
-        jPanel7 = new javax.swing.JPanel();
-        jPanel7.setBounds(98, 99, 98, 98);
-        x1_y1 = new javax.swing.JButton();
-        jPanel8 = new javax.swing.JPanel();
-        jPanel8.setBounds(196, 99, 122, 98);
-        jPanel9 = new javax.swing.JPanel();
-        x1_y2 = new javax.swing.JButton();
-        jPanel10 = new javax.swing.JPanel();
-        jPanel10.setBounds(98, 197, 98, 98);
-        x2_y1 = new javax.swing.JButton();
-        jPanel11 = new javax.swing.JPanel();
-        jPanel11.setBounds(196, 197, 98, 98);
-        x2_y2 = new javax.swing.JButton();
-        jPanel12 = new javax.swing.JPanel();
-        jPanel12.setBackground(new Color(152, 251, 152));
-        jLabel1 = new javax.swing.JLabel();
-        jLabel1.setBounds(558, 44, 0, 0);
-        CURR_TURN_label = new javax.swing.JLabel();
-        CURR_TURN_label.setBounds(86, 18, 254, 52);
-        CurrentTurn = new javax.swing.JLabel();
-        CurrentTurn.setBounds(347, 25, 202, 38);
-        jPanel13 = new javax.swing.JPanel();
-        jPanel13.setBackground(new Color(152, 251, 152));
+        Pannel_Board = new javax.swing.JPanel();
+        Pannel1 = new javax.swing.JPanel();
+        Pannel1.setBounds(0, 0, 98, 99);
+        pannel1 = new javax.swing.JButton();
+        Pannel2 = new javax.swing.JPanel();
+        Pannel2.setBounds(98, 0, 98, 98);
+        pannel4 = new javax.swing.JButton();
+        Pannel3 = new javax.swing.JPanel();
+        Pannel3.setBounds(196, 0, 98, 98);
+        pannel7 = new javax.swing.JButton();
+        Pannel4 = new javax.swing.JPanel();
+        Pannel4.setBounds(0, 99, 98, 98);
+        pannel2 = new javax.swing.JButton();
+        Pannel7 = new javax.swing.JPanel();
+        Pannel7.setBounds(0, 197, 98, 98);
+        pannel3 = new javax.swing.JButton();
+        Pannel5 = new javax.swing.JPanel();
+        Pannel5.setBounds(98, 99, 98, 98);
+        pannel5 = new javax.swing.JButton();
+        Pannel6B = new javax.swing.JPanel();
+        Pannel6B.setBounds(196, 99, 122, 98);
+        Pannel6 = new javax.swing.JPanel();
+        pannel8 = new javax.swing.JButton();
+        Pannel8 = new javax.swing.JPanel();
+        Pannel8.setBounds(98, 197, 98, 98);
+        pannel6 = new javax.swing.JButton();
+        Pannel9 = new javax.swing.JPanel();
+        Pannel9.setBounds(196, 197, 98, 98);
+        pannel9 = new javax.swing.JButton();
+        Banner = new javax.swing.JPanel();
+        Banner.setBackground(new Color(152, 251, 152));
+        Options = new javax.swing.JPanel();
+        Options.setBackground(new Color(152, 251, 152));
         ResetGame = new javax.swing.JButton();
+        ResetGame.setFont(new Font("Arial", Font.PLAIN, 18));
         ResetGame.setBackground(new Color(250, 250, 210));
-        ResetGame.setBounds(41, 203, 176, 59);
-        MoveSuggestion = new javax.swing.JButton();
-        MoveSuggestion.setBounds(41, 280, 176, 59);
-        ChoosePieceType = new javax.swing.JComboBox();
-        ChoosePieceType.setBounds(155, 10, 95, 45);
-        CHOOSE_label = new javax.swing.JLabel();
-        CHOOSE_label.setBounds(26, 14, 117, 45);
-        CHOOSE_label.setHorizontalAlignment(SwingConstants.RIGHT);
+        ResetGame.setBounds(52, 183, 176, 59);
+        Write_History = new javax.swing.JButton();
+        Write_History.setFont(new Font("Arial", Font.PLAIN, 18));
+        Write_History.setBounds(52, 287, 176, 59);
         StartGame = new javax.swing.JButton();
+        StartGame.setFont(new Font("Arial", Font.PLAIN, 18));
         StartGame.setBackground(new Color(250, 250, 210));
-        StartGame.setBounds(41, 126, 176, 59);
-        BackToMainMenu = new javax.swing.JButton();
-        BackToMainMenu.setBackground(new Color(250, 250, 210));
-        BackToMainMenu.setBounds(41, 357, 176, 59);
-        jPanel14 = new javax.swing.JPanel();
-        jPanel14.setBackground(new Color(173, 255, 47));
-        SCORE_label = new javax.swing.JLabel();
-        SCORE_label.setHorizontalAlignment(SwingConstants.CENTER);
-        SCORE_label.setBounds(33, 10, 175, 52);
-        YOU_label = new javax.swing.JLabel();
-        YOU_label.setBounds(86, 108, 116, 52);
-        OPPONENT_label = new javax.swing.JLabel();
-        OPPONENT_label.setBounds(69, 180, 135, 52);
-        PlayerScore = new javax.swing.JLabel();
-        PlayerScore.setBounds(172, 120, 63, 29);
-        PlayerScore.setHorizontalAlignment(SwingConstants.RIGHT);
-        OpponentScore = new javax.swing.JLabel();
-        OpponentScore.setBounds(172, 192, 63, 29);
-        OpponentScore.setHorizontalAlignment(SwingConstants.RIGHT);
+        StartGame.setBounds(52, 81, 176, 59);
+        Point_jPannel = new javax.swing.JPanel();
+        Point_jPannel.setBackground(new Color(173, 255, 47));
+        Point_Label = new javax.swing.JLabel();
+        Point_Label.setHorizontalAlignment(SwingConstants.CENTER);
+        Point_Label.setBounds(33, 10, 175, 52);
+        YOU = new javax.swing.JLabel();
+        YOU.setBounds(86, 108, 116, 52);
+        SKKU_Bot = new javax.swing.JLabel();
+        SKKU_Bot.setBounds(69, 180, 135, 52);
+        You_point = new javax.swing.JLabel();
+        You_point.setBounds(172, 120, 63, 29);
+        You_point.setHorizontalAlignment(SwingConstants.RIGHT);
+        SKKU_Bot_point = new javax.swing.JLabel();
+        SKKU_Bot_point.setBounds(172, 192, 63, 29);
+        SKKU_Bot_point.setHorizontalAlignment(SwingConstants.RIGHT);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("TIC TAC TOE");
+        setTitle("SKKU Sam-Mok");
 
-        jPanel2.setBackground(new java.awt.Color(254, 254, 254));
-        jPanel2.setBorder(new javax.swing.border.MatteBorder(null));
+        Pannel1.setBackground(new java.awt.Color(254, 254, 254));
+        Pannel1.setBorder(new javax.swing.border.MatteBorder(null));
 
-        x0_y0.setFont(new java.awt.Font("Ubuntu", 1, 48));  
-        x0_y0.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        x0_y0.addActionListener(new java.awt.event.ActionListener() {
+        pannel1.setFont(new java.awt.Font("Arial", 1, 48));  
+        pannel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        pannel1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                x0_y0ActionPerformed(evt);
+                pannel1_Click(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(x0_y0, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        javax.swing.GroupLayout gl_Pannel1 = new javax.swing.GroupLayout(Pannel1);
+        Pannel1.setLayout(gl_Pannel1);
+        gl_Pannel1.setHorizontalGroup(
+            gl_Pannel1.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pannel1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(x0_y0, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+        gl_Pannel1.setVerticalGroup(
+            gl_Pannel1.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(gl_Pannel1.createSequentialGroup()
+                .addComponent(pannel1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel3.setBackground(new java.awt.Color(254, 254, 254));
-        jPanel3.setBorder(new javax.swing.border.MatteBorder(null));
+        Pannel2.setBackground(new java.awt.Color(254, 254, 254));
+        Pannel2.setBorder(new javax.swing.border.MatteBorder(null));
 
-        x0_y1.setFont(new java.awt.Font("Ubuntu", 1, 48));  
-        x0_y1.addActionListener(new java.awt.event.ActionListener() {
+        pannel4.setFont(new java.awt.Font("Arial", 1, 48));  
+        pannel4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                x0_y1ActionPerformed(evt);
+                pannel4_Click(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(x0_y1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        javax.swing.GroupLayout gl_Pannel2 = new javax.swing.GroupLayout(Pannel2);
+        Pannel2.setLayout(gl_Pannel2);
+        gl_Pannel2.setHorizontalGroup(
+            gl_Pannel2.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pannel4, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(x0_y1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        gl_Pannel2.setVerticalGroup(
+            gl_Pannel2.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pannel4, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
 
-        jPanel4.setBackground(new java.awt.Color(252, 252, 252));
-        jPanel4.setBorder(new javax.swing.border.MatteBorder(null));
+        Pannel3.setBackground(new java.awt.Color(252, 252, 252));
+        Pannel3.setBorder(new javax.swing.border.MatteBorder(null));
 
-        x0_y2.setFont(new java.awt.Font("Ubuntu", 1, 48));  
-        x0_y2.addActionListener(new java.awt.event.ActionListener() {
+        pannel7.setFont(new java.awt.Font("Arial", 1, 48));  
+        pannel7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                x0_y2ActionPerformed(evt);
+                pannel7_Click(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(x0_y2, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        javax.swing.GroupLayout gl_Pannel3 = new javax.swing.GroupLayout(Pannel3);
+        Pannel3.setLayout(gl_Pannel3);
+        gl_Pannel3.setHorizontalGroup(
+            gl_Pannel3.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pannel7, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(x0_y2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        gl_Pannel3.setVerticalGroup(
+            gl_Pannel3.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pannel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jPanel5.setBackground(new java.awt.Color(254, 252, 250));
-        jPanel5.setBorder(new javax.swing.border.MatteBorder(null));
+        Pannel4.setBackground(new java.awt.Color(254, 252, 250));
+        Pannel4.setBorder(new javax.swing.border.MatteBorder(null));
 
-        x1_y0.setFont(new java.awt.Font("Ubuntu", 1, 48));  
-        x1_y0.addActionListener(new java.awt.event.ActionListener() {
+        pannel2.setFont(new java.awt.Font("Arial", 1, 48));  
+        pannel2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                x1_y0ActionPerformed(evt);
+                pannel2_Click(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(x1_y0, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        javax.swing.GroupLayout gl_Pannel4 = new javax.swing.GroupLayout(Pannel4);
+        Pannel4.setLayout(gl_Pannel4);
+        gl_Pannel4.setHorizontalGroup(
+            gl_Pannel4.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pannel2, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(x1_y0, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        gl_Pannel4.setVerticalGroup(
+            gl_Pannel4.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pannel2, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
 
-        jPanel6.setBackground(new java.awt.Color(253, 251, 250));
-        jPanel6.setBorder(new javax.swing.border.MatteBorder(null));
+        Pannel7.setBackground(new java.awt.Color(253, 251, 250));
+        Pannel7.setBorder(new javax.swing.border.MatteBorder(null));
 
-        x2_y0.setFont(new java.awt.Font("Ubuntu", 1, 48));  
-        x2_y0.addActionListener(new java.awt.event.ActionListener() {
+        pannel3.setFont(new java.awt.Font("Arial", 1, 48));  
+        pannel3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                x2_y0ActionPerformed(evt);
+                pannel3_Click(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(x2_y0, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        javax.swing.GroupLayout gl_Pannel7 = new javax.swing.GroupLayout(Pannel7);
+        Pannel7.setLayout(gl_Pannel7);
+        gl_Pannel7.setHorizontalGroup(
+            gl_Pannel7.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pannel3, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(x2_y0, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        gl_Pannel7.setVerticalGroup(
+            gl_Pannel7.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pannel3, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
 
-        jPanel7.setBackground(new java.awt.Color(254, 252, 250));
-        jPanel7.setBorder(new javax.swing.border.MatteBorder(null));
+        Pannel5.setBackground(new java.awt.Color(254, 252, 250));
+        Pannel5.setBorder(new javax.swing.border.MatteBorder(null));
 
-        x1_y1.setFont(new java.awt.Font("Ubuntu", 1, 48));  
-        x1_y1.addActionListener(new java.awt.event.ActionListener() {
+        pannel5.setFont(new java.awt.Font("Arial", 1, 48));  
+        pannel5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                x1_y1ActionPerformed(evt);
+                pannel5_Click(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(x1_y1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        javax.swing.GroupLayout gl_Pannel5 = new javax.swing.GroupLayout(Pannel5);
+        Pannel5.setLayout(gl_Pannel5);
+        gl_Pannel5.setHorizontalGroup(
+            gl_Pannel5.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pannel5, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(x1_y1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        gl_Pannel5.setVerticalGroup(
+            gl_Pannel5.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pannel5, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
 
-        jPanel9.setBackground(new java.awt.Color(251, 250, 248));
-        jPanel9.setBorder(new javax.swing.border.MatteBorder(null));
+        Pannel6.setBackground(new java.awt.Color(251, 250, 248));
+        Pannel6.setBorder(new javax.swing.border.MatteBorder(null));
 
-        x1_y2.setFont(new java.awt.Font("Ubuntu", 1, 48));  
-        x1_y2.addActionListener(new java.awt.event.ActionListener() {
+        pannel8.setFont(new java.awt.Font("Arial", 1, 48));  
+        pannel8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                x1_y2ActionPerformed(evt);
+                pannel8_Click(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(x1_y2, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        javax.swing.GroupLayout gl_Pannel6 = new javax.swing.GroupLayout(Pannel6);
+        Pannel6.setLayout(gl_Pannel6);
+        gl_Pannel6.setHorizontalGroup(
+            gl_Pannel6.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pannel8, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(x1_y2, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        gl_Pannel6.setVerticalGroup(
+            gl_Pannel6.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pannel8, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        javax.swing.GroupLayout gl_Pannel6B = new javax.swing.GroupLayout(Pannel6B);
+        Pannel6B.setLayout(gl_Pannel6B);
+        gl_Pannel6B.setHorizontalGroup(
+            gl_Pannel6B.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(gl_Pannel6B.createSequentialGroup()
+                .addComponent(Pannel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 24, Short.MAX_VALUE))
         );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+        gl_Pannel6B.setVerticalGroup(
+            gl_Pannel6B.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, gl_Pannel6B.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(Pannel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel10.setBackground(new java.awt.Color(251, 250, 248));
-        jPanel10.setBorder(new javax.swing.border.MatteBorder(null));
+        Pannel8.setBackground(new java.awt.Color(251, 250, 248));
+        Pannel8.setBorder(new javax.swing.border.MatteBorder(null));
 
-        x2_y1.setFont(new java.awt.Font("Ubuntu", 1, 48));  
-        x2_y1.addActionListener(new java.awt.event.ActionListener() {
+        pannel6.setFont(new java.awt.Font("Arial", 1, 48));  
+        pannel6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                x2_y1ActionPerformed(evt);
+                pannel6_Click(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(x2_y1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        javax.swing.GroupLayout gl_Pannel8 = new javax.swing.GroupLayout(Pannel8);
+        Pannel8.setLayout(gl_Pannel8);
+        gl_Pannel8.setHorizontalGroup(
+            gl_Pannel8.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pannel6, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(x2_y1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        gl_Pannel8.setVerticalGroup(
+            gl_Pannel8.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pannel6, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
 
-        jPanel11.setBackground(new java.awt.Color(250, 248, 246));
-        jPanel11.setBorder(new javax.swing.border.MatteBorder(null));
+        Pannel9.setBackground(new java.awt.Color(250, 248, 246));
+        Pannel9.setBorder(new javax.swing.border.MatteBorder(null));
 
-        x2_y2.setFont(new java.awt.Font("Ubuntu", 1, 48)); 
-        x2_y2.addActionListener(new java.awt.event.ActionListener() {
+        pannel9.setFont(new java.awt.Font("Arial", 1, 48)); 
+        pannel9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                x2_y2ActionPerformed(evt);
+                pannel9_Click(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
-        jPanel11.setLayout(jPanel11Layout);
-        jPanel11Layout.setHorizontalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(x2_y2, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        javax.swing.GroupLayout gl_Pannel9 = new javax.swing.GroupLayout(Pannel9);
+        Pannel9.setLayout(gl_Pannel9);
+        gl_Pannel9.setHorizontalGroup(
+            gl_Pannel9.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pannel9, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
-        jPanel11Layout.setVerticalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(x2_y2, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        gl_Pannel9.setVerticalGroup(
+            gl_Pannel9.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pannel9, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
 
-        CURR_TURN_label.setFont(new Font("Arial", Font.BOLD, 36));
-        CURR_TURN_label.setText("Current Turn : ");
-
-        CurrentTurn.setFont(new Font("Arial", Font.ITALIC, 36)); 
-        CurrentTurn.setText("Opponent");
-
-        ResetGame.setText("Reset all!!");
+        ResetGame.setText("Reset");
         ResetGame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ResetGameActionPerformed(evt);
+                resetBtn_Clicked(evt);
             }
         });
 
-        MoveSuggestion.setBackground(new Color(250, 250, 210));
-        MoveSuggestion.setText("Suggest a MOVE");
-        MoveSuggestion.addActionListener(new java.awt.event.ActionListener() {
+        Write_History.setBackground(new Color(250, 250, 210));
+        Write_History.setText("Write History (txt)");
+        Write_History.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MoveSuggestionActionPerformed(evt);
+                Write_history(evt);
             }
         });
 
-        ChoosePieceType.setFont(new Font("Arial", Font.BOLD, 36)); 
-        ChoosePieceType.setMaximumRowCount(2);
-        ChoosePieceType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "O", "X" }));
-        ChoosePieceType.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ChoosePieceTypeActionPerformed(evt);
-            }
-        });
-
-        CHOOSE_label.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 24)); 
-        CHOOSE_label.setText("X or O  :");
-
-        StartGame.setText("Start Sam-Mok!!");
+        StartGame.setText("Start Sam-Mok");
         StartGame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                StartGameActionPerformed(evt);
+                startBtn_Click(evt);
             }
         });
 
-        BackToMainMenu.setText("Main Menu");
-        BackToMainMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BackToMainMenuActionPerformed(evt);
-            }
-        });
+        Point_Label.setFont(new Font("Arial", Font.BOLD, 36)); 
+        Point_Label.setText("Point");
 
-        SCORE_label.setFont(new Font("Arial", Font.BOLD, 36)); 
-        SCORE_label.setText("Point");
+        YOU.setFont(new java.awt.Font("Arial", 1, 24));
+        YOU.setForeground(new java.awt.Color(51, 111, 44));
+        YOU.setText("    YOU   :");
 
-        YOU_label.setFont(new java.awt.Font("Ubuntu", 1, 24));
-        YOU_label.setForeground(new java.awt.Color(51, 111, 44));
-        YOU_label.setText("    YOU   :");
+        SKKU_Bot.setFont(new java.awt.Font("Arial", 1, 24)); 
+        SKKU_Bot.setForeground(new java.awt.Color(240, 84, 84));
+        SKKU_Bot.setText("SKKU Bot : ");
 
-        OPPONENT_label.setFont(new java.awt.Font("Ubuntu", 1, 24)); 
-        OPPONENT_label.setForeground(new java.awt.Color(240, 84, 84));
-        OPPONENT_label.setText("SKKU Bot : ");
+        You_point.setFont(new java.awt.Font("Arial", 1, 24)); 
+        You_point.setForeground(new java.awt.Color(0, 185, 0));
+        You_point.setText("0");
 
-        PlayerScore.setFont(new java.awt.Font("Ubuntu", 1, 24)); 
-        PlayerScore.setForeground(new java.awt.Color(0, 185, 0));
-        PlayerScore.setText("0");
-
-        OpponentScore.setFont(new java.awt.Font("Ubuntu", 1, 24));  
-        OpponentScore.setForeground(new java.awt.Color(215, 73, 73));
-        OpponentScore.setText("0");
+        SKKU_Bot_point.setFont(new java.awt.Font("Arial", 1, 24));  
+        SKKU_Bot_point.setForeground(new java.awt.Color(215, 73, 73));
+        SKKU_Bot_point.setText("0");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         layout.setHorizontalGroup(
@@ -431,14 +356,14 @@ public class Gui_play_of_game extends javax.swing.JFrame {
         			.addGroup(layout.createParallelGroup(Alignment.TRAILING)
         				.addGroup(layout.createSequentialGroup()
         					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        					.addComponent(jPanel14, GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+        					.addComponent(Point_jPannel, GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
         					.addGap(23)
-        					.addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, 305, GroupLayout.PREFERRED_SIZE))
+        					.addComponent(Pannel_Board, GroupLayout.PREFERRED_SIZE, 305, GroupLayout.PREFERRED_SIZE))
         				.addGroup(layout.createSequentialGroup()
         					.addGap(7)
-        					.addComponent(jPanel12, GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)))
+        					.addComponent(Banner, GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)))
         			.addGap(29)
-        			.addComponent(jPanel13, GroupLayout.PREFERRED_SIZE, 272, GroupLayout.PREFERRED_SIZE)
+        			.addComponent(Options, GroupLayout.PREFERRED_SIZE, 272, GroupLayout.PREFERRED_SIZE)
         			.addContainerGap())
         );
         layout.setVerticalGroup(
@@ -447,930 +372,402 @@ public class Gui_play_of_game extends javax.swing.JFrame {
         			.addGap(16)
         			.addGroup(layout.createParallelGroup(Alignment.LEADING)
         				.addGroup(layout.createSequentialGroup()
-        					.addComponent(jPanel13, GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
+        					.addComponent(Options, GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
         					.addContainerGap())
         				.addGroup(layout.createSequentialGroup()
-        					.addComponent(jPanel12, GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+        					.addComponent(Banner, GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
         					.addGroup(layout.createParallelGroup(Alignment.LEADING)
         						.addGroup(layout.createSequentialGroup()
         							.addGap(11)
-        							.addComponent(jPanel14, GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE))
+        							.addComponent(Point_jPannel, GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE))
         						.addGroup(layout.createSequentialGroup()
         							.addPreferredGap(ComponentPlacement.RELATED)
-        							.addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)))
+        							.addComponent(Pannel_Board, GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)))
         					.addGap(56))))
         );
-        jPanel12.setLayout(null);
-        jPanel12.add(CURR_TURN_label);
-        jPanel12.add(CurrentTurn);
-        jPanel12.add(jLabel1);
-        jPanel13.setLayout(null);
-        jPanel13.add(CHOOSE_label);
-        jPanel13.add(ChoosePieceType);
-        jPanel13.add(MoveSuggestion);
-        jPanel13.add(ResetGame);
-        jPanel13.add(StartGame);
-        jPanel13.add(BackToMainMenu);
-        jPanel1.setLayout(null);
-        jPanel1.add(jPanel2);
-        jPanel1.add(jPanel3);
-        jPanel1.add(jPanel4);
-        jPanel1.add(jPanel5);
-        jPanel1.add(jPanel6);
-        jPanel1.add(jPanel7);
-        jPanel1.add(jPanel8);
-        jPanel1.add(jPanel10);
-        jPanel1.add(jPanel11);
-        jPanel14.setLayout(null);
-        jPanel14.add(SCORE_label);
-        jPanel14.add(YOU_label);
-        jPanel14.add(PlayerScore);
-        jPanel14.add(OPPONENT_label);
-        jPanel14.add(OpponentScore);
+        Banner.setLayout(null);
         
-        JLabel lblNewLabel = new JLabel();
-        lblNewLabel.setIcon(new ImageIcon(getClass().getResource("me.png")));
-        lblNewLabel.setBounds(12, 108, 50, 52);
-        jPanel14.add(lblNewLabel);
+        JLabel Banner_Text = new JLabel("Beats the SKKU - Bot!!");
+        Banner_Text.setFont(new Font("Arial", Font.BOLD, 43));
+        Banner_Text.setForeground(new Color(255, 215, 0));
+        Banner_Text.setHorizontalAlignment(SwingConstants.CENTER);
+        Banner_Text.setBounds(22, 10, 526, 68);
+        Banner.add(Banner_Text);
+        Options.setLayout(null);
+        Options.add(Write_History);
+        Options.add(ResetGame);
+        Options.add(StartGame);
+        Pannel_Board.setLayout(null);
+        Pannel_Board.add(Pannel1);
+        Pannel_Board.add(Pannel2);
+        Pannel_Board.add(Pannel3);
+        Pannel_Board.add(Pannel4);
+        Pannel_Board.add(Pannel7);
+        Pannel_Board.add(Pannel5);
+        Pannel_Board.add(Pannel6B);
+        Pannel_Board.add(Pannel8);
+        Pannel_Board.add(Pannel9);
+        Point_jPannel.setLayout(null);
+        Point_jPannel.add(Point_Label);
+        Point_jPannel.add(YOU);
+        Point_jPannel.add(You_point);
+        Point_jPannel.add(SKKU_Bot);
+        Point_jPannel.add(SKKU_Bot_point);
         
-        JLabel lblNewLabel_1 = new JLabel();
-        lblNewLabel_1.setIcon(new ImageIcon(getClass().getResource("com.png")));
-        lblNewLabel_1.setBounds(12, 180, 50, 50);
-        jPanel14.add(lblNewLabel_1);
+        JLabel YOU_logo = new JLabel();
+        YOU_logo.setIcon(new ImageIcon(getClass().getResource("me.png")));
+        YOU_logo.setBounds(12, 108, 50, 52);
+        Point_jPannel.add(YOU_logo);
+        
+        JLabel SKKU_Bot_logo = new JLabel();
+        SKKU_Bot_logo.setIcon(new ImageIcon(getClass().getResource("com.png")));
+        SKKU_Bot_logo.setBounds(12, 180, 50, 50);
+        Point_jPannel.add(SKKU_Bot_logo);
         getContentPane().setLayout(layout);
 
         pack();
     }
 
-    private void x1_y1ActionPerformed(java.awt.event.ActionEvent evt) {
-        if (IsGameRunning) {
-            if (x1_y1.getText().isEmpty()) {
-                if (MainMenu.get_IsTwoPlayerGame()) {
-                    if (engine.get_IsPlayer1Turn()) {
-                        engine.Board.board[1][1] = engine.player1.get_o_x_emp();
-                        x1_y1.setText(engine.player1.get_o_x_emp().toString());
-                         
-                        Player1_Move();
-                    } 
-                    else {
-                        engine.Board.board[1][1] = engine.player2.get_o_x_emp();
-                        x1_y1.setText(engine.player2.get_o_x_emp().toString());
-                         Player2_Move();
-                    
-                    }
-                } 
-                
-                else {
-                    engine.Board.board[1][1] = engine.player2.get_o_x_emp();
-                    x1_y1.setText(engine.player2.get_o_x_emp().toString());
-                    Player2_Move();
-                    Player1_Move();
-                }
-            }
-        }
-    }
-
-    private void x0_y0ActionPerformed(java.awt.event.ActionEvent evt) {
-        if (IsGameRunning) {
-            if (x0_y0.getText().isEmpty()) {
-                if (MainMenu.get_IsTwoPlayerGame()) {
-                    if (engine.get_IsPlayer1Turn()) {
-                        engine.Board.board[0][0] = engine.player1.get_o_x_emp();
-                        x0_y0.setText(engine.player1.get_o_x_emp().toString());
-                        Player1_Move();
-                    }
-                    
-                    else {
-                        engine.Board.board[0][0] = engine.player2.get_o_x_emp();
-                        x0_y0.setText(engine.player2.get_o_x_emp().toString());
-                        Player2_Move();
-                    }
-                } else {
-                    engine.Board.board[0][0] = engine.player2.get_o_x_emp();
-                    x0_y0.setText(engine.player2.get_o_x_emp().toString());
-
-                    Player2_Move();
-                    Player1_Move();
-
-                }
-            }
-        }
-    }
-
-    private void x2_y2ActionPerformed(java.awt.event.ActionEvent evt) {
-       
-        if (IsGameRunning) {
-            if (x2_y2.getText().isEmpty()) {
-                if (MainMenu.get_IsTwoPlayerGame()) {
-
-                    if (engine.get_IsPlayer1Turn()) {
-                        engine.Board.board[2][2] = engine.player1.get_o_x_emp();
-                        x2_y2.setText(engine.player1.get_o_x_emp().toString());
-                        Player1_Move();
-                    } 
-                    else {
-                        engine.Board.board[2][2] = engine.player2.get_o_x_emp();
-                        x2_y2.setText(engine.player2.get_o_x_emp().toString());
-                        Player2_Move();
-                    }
-                } 
-                
-                else {
-
-                    engine.Board.board[2][2] = engine.player2.get_o_x_emp();
-                    x2_y2.setText(engine.player2.get_o_x_emp().toString());
-
-                    Player2_Move();
-                    Player1_Move();
-                }
-            }
-        }
-    }
-
-    private void x0_y1ActionPerformed(java.awt.event.ActionEvent evt) {
-        if (IsGameRunning) {
-            if (x0_y1.getText().isEmpty()) {
-                if (MainMenu.get_IsTwoPlayerGame()) {
-                    if (engine.get_IsPlayer1Turn()) {
-                        engine.Board.board[0][1] = engine.player1.get_o_x_emp();
-                        x0_y1.setText(engine.player1.get_o_x_emp().toString());
-                        Player1_Move();
-                    } 
-                    
-                    else {
-                        engine.Board.board[0][1] = engine.player2.get_o_x_emp();
-                        x0_y1.setText(engine.player2.get_o_x_emp().toString());
-                        Player2_Move();
-                    }
-                } 
-                
-                else {
-                    engine.Board.board[0][1] = engine.player2.get_o_x_emp();
-                    x0_y1.setText(engine.player2.get_o_x_emp().toString());
-
-                    Player2_Move();
-                    Player1_Move();
-                }
-            }
-        }
-    }
-
-    private void ResetGameActionPerformed(java.awt.event.ActionEvent evt) {
-        ResetBoard();
-        IsGameRunning = false;
-        
-
-    }
-
-    private void ChoosePieceTypeActionPerformed(java.awt.event.ActionEvent evt) {
-
-        String piece_type = ChoosePieceType.getSelectedItem().toString();
-        if (!IsGameRunning) {
-            if (piece_type.equalsIgnoreCase("X")) {
-                engine.player2.set_o_x_emp(pieces.X);
-                engine.player1.set_o_x_emp(pieces.O);
-            } else {
-                engine.player2.set_o_x_emp(pieces.O);
-                engine.player1.set_o_x_emp(pieces.X);
-            }
-        } else {
-            JOptionPane.showMessageDialog(frame,
-                    "Don't Hurry Game is in progress , Please Reset game to change",
-                    "Changing Piece Type while Game is in Progress",
-                    JOptionPane.WARNING_MESSAGE);
-
-            ChoosePieceType.setSelectedItem(engine.player2.get_o_x_emp().toString());
-
-        }
-    }
-
-    private void BackToMainMenuActionPerformed(java.awt.event.ActionEvent evt) {
-        
-        JOptionPane optionPane = new JOptionPane(
-                "You Will lost all your game progress\n"
-                + "Would you like to continue.\n",
-                JOptionPane.QUESTION_MESSAGE,
-                JOptionPane.YES_NO_OPTION);
-
-        JDialog dialog = optionPane.createDialog(new JFrame(), "Resetting Game");
-        dialog.setVisible(true);
-        
-        if (optionPane.getValue().toString().equals("0")) {
-
-            ResetBoard();
-            ResetScore();
-            IsGameRunning = false;
-            setVisible(false);
-            MainMenu.setVisible(true);
-
-        }
-
-
-    }
-
-    private void x1_y0ActionPerformed(java.awt.event.ActionEvent evt) {
-        if (IsGameRunning) {
-            if (x1_y0.getText().isEmpty()) {
-                if (MainMenu.get_IsTwoPlayerGame()) {
-                    if (engine.get_IsPlayer1Turn()) {
-                        engine.Board.board[1][0] = engine.player1.get_o_x_emp();
-                        x1_y0.setText(engine.player1.get_o_x_emp().toString());
-                        Player1_Move();
-                    } 
-                    
-                    else {
-                        engine.Board.board[1][0] = engine.player2.get_o_x_emp();
-                        x1_y0.setText(engine.player2.get_o_x_emp().toString());
-                        Player2_Move();
-                    }
-                }
-                
-                else {
-                    engine.Board.board[1][0] = engine.player2.get_o_x_emp();
-                    x1_y0.setText(engine.player2.get_o_x_emp().toString());
-
-                    Player2_Move();
-                    Player1_Move();
-                }
-            }
-        }
-    }
-
-    private void x0_y2ActionPerformed(java.awt.event.ActionEvent evt) {
-        if (IsGameRunning) {
-            if (x0_y2.getText().isEmpty()) {
-                if (MainMenu.get_IsTwoPlayerGame()) {
-                    if (engine.get_IsPlayer1Turn()) {
-                        engine.Board.board[0][2] = engine.player1.get_o_x_emp();
-                        x0_y2.setText(engine.player1.get_o_x_emp().toString());
-                        Player1_Move();
-                    }
-                    
-                    else {
-                        engine.Board.board[0][2] = engine.player2.get_o_x_emp();
-                        x0_y2.setText(engine.player2.get_o_x_emp().toString());
-                        Player2_Move();
-                    }
-                } 
-                
-                else {
-                    engine.Board.board[0][2] = engine.player2.get_o_x_emp();
-                    x0_y2.setText(engine.player2.get_o_x_emp().toString());
-
-                    Player2_Move();
-                    Player1_Move();
-                }
-            }
-        }
-    }
-
-    private void x1_y2ActionPerformed(java.awt.event.ActionEvent evt) {
-        if (IsGameRunning) {
-            if (x1_y2.getText().isEmpty()) {
-                if (MainMenu.get_IsTwoPlayerGame()) {
-                    if (engine.get_IsPlayer1Turn()) {
-                        engine.Board.board[1][2] = engine.player1.get_o_x_emp();
-                        x1_y2.setText(engine.player1.get_o_x_emp().toString());
-                        Player1_Move();
-                    } 
-                    
-                    else {
-                        engine.Board.board[1][2] = engine.player2.get_o_x_emp();
-                        x1_y2.setText(engine.player2.get_o_x_emp().toString());
-                        Player2_Move();
-                    }
-                } 
-                
-                else {
-                    engine.Board.board[1][2] = engine.player2.get_o_x_emp();
-                    x1_y2.setText(engine.player2.get_o_x_emp().toString());
-
-                    Player2_Move();
-                    Player1_Move();
-                }
-            }
-        }
-    }
-
-    private void x2_y0ActionPerformed(java.awt.event.ActionEvent evt) {
-        if (IsGameRunning) {
-            if (x2_y0.getText().isEmpty()) {
-                if (MainMenu.get_IsTwoPlayerGame()) {
-                    if (engine.get_IsPlayer1Turn()) {
-                        engine.Board.board[2][0] = engine.player1.get_o_x_emp();
-                        x2_y0.setText(engine.player1.get_o_x_emp().toString());
-                        Player1_Move();
-                    } 
-                    
-                    else {
-                        engine.Board.board[2][0] = engine.player2.get_o_x_emp();
-                        x2_y0.setText(engine.player2.get_o_x_emp().toString());
-                        Player2_Move();
-                    }
-                } 
-                
-                else {
-                    engine.Board.board[2][0] = engine.player2.get_o_x_emp();
-                    x2_y0.setText(engine.player2.get_o_x_emp().toString());
-
-                    Player2_Move();
-                    Player1_Move();
-                }
-            }
-        }
-    }
-
-    private void x2_y1ActionPerformed(java.awt.event.ActionEvent evt) {
-        if (IsGameRunning) {
-            if (x2_y1.getText().isEmpty()) {
-                if (MainMenu.get_IsTwoPlayerGame()) {
-                    if (engine.get_IsPlayer1Turn()) {
-                        engine.Board.board[2][1] = engine.player1.get_o_x_emp();
-                        x2_y1.setText(engine.player1.get_o_x_emp().toString());
-                        Player1_Move();
-                    }
-                    
-                    else {
-                        engine.Board.board[2][1] = engine.player2.get_o_x_emp();
-                        x2_y1.setText(engine.player2.get_o_x_emp().toString());
-                        Player2_Move();
-                    }
-                } 
-                
-                else {
-                    engine.Board.board[2][1] = engine.player2.get_o_x_emp();
-                    x2_y1.setText(engine.player2.get_o_x_emp().toString());
-
-                    Player2_Move();
-                    Player1_Move();
-                }
-            }
-        }
-    }
-
-    private void StartGameActionPerformed(java.awt.event.ActionEvent evt) {
-        
-        if(!IsGameRunning){
-            ResetBoard();
-            if (gamecount % 2 == 0) {
-                SetPlayer2Turn();
-            } else {
-                SetPlayer1Turn();
-            }
-
-            IsGameRunning = true;
-            if (!MainMenu.get_IsTwoPlayerGame() && engine.get_IsPlayer1Turn()) {
-               engine.Board.board[0][0] = engine.player1.get_o_x_emp();
-               x0_y0.setText(engine.player1.get_o_x_emp().toString());
-               SetPlayer2Turn();
-            }
-            gamecount++;
-        }
-        else{
-            JOptionPane.showMessageDialog(frame,"Game Is Already Running,Please Reset Game If you wan't to start from beginning");
-        }
-    }
-
-    private void MoveSuggestionActionPerformed(java.awt.event.ActionEvent evt) {
-        int[] bestMove = engine.findBestMove();
-        if (bestMove[2] == -1) {
-            System.out.println("game draw");
-            JOptionPane.showMessageDialog(frame,
-                    "you can't get more than a draw");
-            
-        }  
-        
-        else {
-
-            if (bestMove[0] == 0 && bestMove[1] == 0) {
-                Blink_Button(x0_y0);
-
-            }
-
-            if (bestMove[0] == 1 && bestMove[1] == 0) {
-                Blink_Button(x1_y0);
-            }
-
-            if (bestMove[0] == 2 && bestMove[1] == 0) {
-               Blink_Button(x2_y0);
-            }
-
-            if (bestMove[0] == 0 && bestMove[1] == 1) {
-                Blink_Button(x0_y1);
-            }
-
-            if (bestMove[0] == 1 && bestMove[1] == 1) {
-                Blink_Button(x1_y1);
-            }
-
-            if (bestMove[0] == 2 && bestMove[1] == 1) {
-                Blink_Button(x2_y1);
-            }
-
-            if (bestMove[0] == 0 && bestMove[1] == 2) {
-                Blink_Button(x0_y2);
-            }
-
-            if (bestMove[0] == 1 && bestMove[1] == 2) {
-                Blink_Button(x1_y2);
-            }
-
-            if (bestMove[0] == 2 && bestMove[1] == 2) {
-               Blink_Button(x2_y2);
-            }
-
-        
-    }
- }
-    private void Blink_Button(final javax.swing.JButton b){
-        Timer blinkTimer = new Timer(500, new ActionListener() {
-        private int count = 0;
-        private int maxCount = 10;
-        private boolean on = false;
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if (count >= maxCount) {
-                b.setBackground(null);
-                ((Timer) e.getSource()).stop();
-            } else {
-                b.setBackground( on ? Color.YELLOW : null);
-                on = !on;
-                count++;
-            }
-        }
-
+    private void pannel5_Click(java.awt.event.ActionEvent evt) {
+        if (pannel5.getText().isEmpty()) {
            
+            GA.Board.board[1][1] = GA.User_player.get_o_x_emp();
+            pannel5.setText(GA.User_player.get_o_x_emp().toString());
+            user_move();
+            skku_move();
             
-       });
-        blinkTimer.start();
-    }
-    private void SetPlayer1Turn() {
-        engine.set_IsPlayer1Turn(true);
-        CurrentTurn.setText("Opponent's");
-        CurrentTurn.setForeground(new java.awt.Color(240, 84, 84));
+        }
     }
 
-    private void SetPlayer2Turn() {
-        engine.set_IsPlayer1Turn(false);
-        CurrentTurn.setText("Your's");
-        CurrentTurn.setForeground(new java.awt.Color(51, 111, 44));
+    private void pannel1_Click(java.awt.event.ActionEvent evt) {
+        if (pannel1.getText().isEmpty()) {
+            
+            GA.Board.board[0][0] = GA.User_player.get_o_x_emp();
+            pannel1.setText(GA.User_player.get_o_x_emp().toString());
+
+            user_move();
+            skku_move();
+
+        }
     }
 
-    private void ResetBoard() {
-        int i, j;
+    private void pannel9_Click(java.awt.event.ActionEvent evt) {
+       
+        if (pannel9.getText().isEmpty()) {
+            
+            GA.Board.board[2][2] = GA.User_player.get_o_x_emp();
+            pannel9.setText(GA.User_player.get_o_x_emp().toString());
 
-        engine.Board.reset();
-        ResetButtonColor();
-        x0_y0.setText("");
-        x0_y1.setText("");
-        x0_y2.setText("");
-        x1_y0.setText("");
-        x1_y1.setText("");
-        x1_y2.setText("");
-        x2_y0.setText("");
-        x2_y1.setText("");
-        x2_y2.setText("");
+            user_move();
+            skku_move();
+            
+        }
+        
+    }
+
+    private void pannel4_Click(java.awt.event.ActionEvent evt) {
+        if (pannel4.getText().isEmpty()) {
+            
+            GA.Board.board[0][1] = GA.User_player.get_o_x_emp();
+            pannel4.setText(GA.User_player.get_o_x_emp().toString());
+
+            user_move();
+            skku_move();
+            
+        }
+        
+    }
+
+    private void resetBtn_Clicked(java.awt.event.ActionEvent evt) {
+        board_reset();
+    }
+
+    private void pannel2_Click(java.awt.event.ActionEvent evt) {
+        if (pannel2.getText().isEmpty()) {
+            
+            GA.Board.board[1][0] = GA.User_player.get_o_x_emp();
+            pannel2.setText(GA.User_player.get_o_x_emp().toString());
+
+            user_move();
+            skku_move();
+            
+        }
+        
+    }
+
+    private void pannel7_Click(java.awt.event.ActionEvent evt) {
+        if (pannel7.getText().isEmpty()) {
+            
+            GA.Board.board[0][2] = GA.User_player.get_o_x_emp();
+            pannel7.setText(GA.User_player.get_o_x_emp().toString());
+
+            user_move();
+            skku_move();
+            
+        }
+        
+    }
+
+    private void pannel8_Click(java.awt.event.ActionEvent evt) {
+        if (pannel8.getText().isEmpty()) {
+            
+            GA.Board.board[1][2] = GA.User_player.get_o_x_emp();
+            pannel8.setText(GA.User_player.get_o_x_emp().toString());
+
+            user_move();
+            skku_move();
+            
+        }
+        
+    }
+
+    private void pannel3_Click(java.awt.event.ActionEvent evt) {
+        if (pannel3.getText().isEmpty()) {
+            
+            GA.Board.board[2][0] = GA.User_player.get_o_x_emp();
+            pannel3.setText(GA.User_player.get_o_x_emp().toString());
+
+            user_move();
+            skku_move();
+            
+        }
+        
+    }
+
+    private void pannel6_Click(java.awt.event.ActionEvent evt) {
+        if (pannel6.getText().isEmpty()) {
+            
+            GA.Board.board[2][1] = GA.User_player.get_o_x_emp();
+            pannel6.setText(GA.User_player.get_o_x_emp().toString());
+
+            user_move();
+            skku_move();
+            
+        }
+        
+    }
+
+    private void startBtn_Click(java.awt.event.ActionEvent evt) {
+        
+            board_reset();
+            
+            setSKKUTurn();
+            
+            if ( GA.get_TurnOfSKKU()) {
+               GA.Board.board[0][0] = GA.SKKU_Bot.get_o_x_emp();
+               pannel1.setText(GA.SKKU_Bot.get_o_x_emp().toString());
+               setUserTurn();
+            }
+        
+    }
+
+    private void Write_history(java.awt.event.ActionEvent evt) {
+    	// Write the history text file.
+    	FileWriter fw; // FileWriter
+
+		try {
+			fw = new FileWriter("History.txt", false);
+			fw.write("");
+			fw.append(GA.Board.history+"\n\n");
+			fw.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+    private void setSKKUTurn() {
+        GA.set_TurnOfSKKU(true);
+    }
+
+    private void setUserTurn() {
+        GA.set_TurnOfSKKU(false);
+    }
+
+    private void board_reset() {
+
+        GA.Board.reset();
+        btnColor_reset();
+        pannel1.setText("");
+        pannel4.setText("");
+        pannel7.setText("");
+        pannel2.setText("");
+        pannel5.setText("");
+        pannel8.setText("");
+        pannel3.setText("");
+        pannel6.setText("");
+        pannel9.setText("");
 
     }
 
-    private void ResetScore() {
-        gamecount = 0;
-        engine.player1.win_to_Zero();
-        engine.player2.win_to_Zero();
-        PlayerScore.setText("0");
-        OpponentScore.setText(("0"));
-    }
+    private void user_move() {
 
-    private void Player2_Move() {
-
-        curr_score = engine.evaluate_score(0);
-        SetPlayer1Turn();
-        if (curr_score > 0) {
+        point = GA.evaluate_score(0);
+        setSKKUTurn();
+        if (point > 0) {
             
             System.out.println("Player1 Wins");
-            HighlightWinningOrLoosing();
-            IsGameRunning = false;
-            engine.Board.printBoard();
-            engine.player1.win_plus_one();
-            OpponentScore.setText(Integer.toString(engine.player1.get_num_wins()));
+            GA.Board.history +="Player1 Wins\n";
+            GA.Board.printBoard();
+            GA.SKKU_Bot.win_plus_one();
+            SKKU_Bot_point.setText(Integer.toString(GA.SKKU_Bot.get_num_wins()));
             JOptionPane.showMessageDialog(frame,
                                     "YOU Lost , Your Opponent has played better than you");
            
             
 
-        } else if (curr_score < 0) {
+        } else if (point < 0) {
             
             System.out.println("Player2 wins");
-            HighlightWinningOrLoosing();
-            engine.Board.printBoard();
-            engine.player2.win_plus_one();
-            PlayerScore.setText(Integer.toString(engine.player2.get_num_wins()));
+            GA.Board.history +="Player2 Wins\n";
+            GA.Board.printBoard();
+            GA.User_player.win_plus_one();
+            You_point.setText(Integer.toString(GA.User_player.get_num_wins()));
             
-            IsGameRunning = false;
             JOptionPane.showMessageDialog(frame,
-                                    "Hurrah,YOU Won the game");
+                                    "You beat the SKKU Bot!!");
            
 
         }
 
-        if (!engine.IsMoveLeft()) {
-            IsGameRunning = false;
-            JOptionPane.showMessageDialog(frame, "Game DRAW ,It's better than loosing");
+        if (!GA.IsMoveLeft()) {
+            JOptionPane.showMessageDialog(frame, "It's Draw");
            
         }
 
     }
 
-    private void Player1_Move() {
+    private void skku_move() {
 
         int[] bestMove = new int[3];
-        if (IsGameRunning) {
 
-            if (MainMenu.get_IsTwoPlayerGame()) {
-                
-                curr_score = engine.evaluate_score(0);
-                SetPlayer2Turn();
-                if (curr_score > 0) {
+        if (GA.get_TurnOfSKKU()) {
+
+            bestMove = GA.Calculate_Solution();
+
+            if (bestMove[2] == -1) {
+                System.out.println("Game Draw");
+                GA.Board.history +="Game Draw\n";
+                JOptionPane.showMessageDialog(frame,
+                        "It's Draw");
+            } else {
+
+                if (bestMove[0] == 0 && bestMove[1] == 0) {
+                    GA.Board.board[0][0] = GA.SKKU_Bot.get_o_x_emp();
+                    pannel1.setText(GA.SKKU_Bot.get_o_x_emp().toString());
+
+                }
+
+                if (bestMove[0] == 1 && bestMove[1] == 0) {
+                    GA.Board.board[1][0] = GA.SKKU_Bot.get_o_x_emp();
+                    pannel2.setText(GA.SKKU_Bot.get_o_x_emp().toString());
+                }
+
+                if (bestMove[0] == 2 && bestMove[1] == 0) {
+                    GA.Board.board[2][0] = GA.SKKU_Bot.get_o_x_emp();
+                    pannel3.setText(GA.SKKU_Bot.get_o_x_emp().toString());
+                }
+
+                if (bestMove[0] == 0 && bestMove[1] == 1) {
+                    GA.Board.board[0][1] = GA.SKKU_Bot.get_o_x_emp();
+                    pannel4.setText(GA.SKKU_Bot.get_o_x_emp().toString());
+                }
+
+                if (bestMove[0] == 1 && bestMove[1] == 1) {
+                    GA.Board.board[1][1] = GA.SKKU_Bot.get_o_x_emp();
+                    pannel5.setText(GA.SKKU_Bot.get_o_x_emp().toString());
+                }
+
+                if (bestMove[0] == 2 && bestMove[1] == 1) {
+                    GA.Board.board[2][1] = GA.SKKU_Bot.get_o_x_emp();
+                    pannel6.setText(GA.SKKU_Bot.get_o_x_emp().toString());
+                }
+
+                if (bestMove[0] == 0 && bestMove[1] == 2) {
+                    GA.Board.board[0][2] = GA.SKKU_Bot.get_o_x_emp();
+                    pannel7.setText(GA.SKKU_Bot.get_o_x_emp().toString());
+                }
+
+                if (bestMove[0] == 1 && bestMove[1] == 2) {
+                    GA.Board.board[1][2] = GA.SKKU_Bot.get_o_x_emp();
+                    pannel8.setText(GA.SKKU_Bot.get_o_x_emp().toString());
+                }
+
+                if (bestMove[0] == 2 && bestMove[1] == 2) {
+                    GA.Board.board[2][2] = GA.SKKU_Bot.get_o_x_emp();
+                    pannel9.setText(GA.SKKU_Bot.get_o_x_emp().toString());
+                }
+
+                setUserTurn();
+                point = GA.evaluate_score(0);
+                if (point > 0) {
                     System.out.println("Player1 Wins");
-                    HighlightWinningOrLoosing();
-                    IsGameRunning = false;
-                    engine.Board.printBoard();
-                    engine.player1.win_plus_one();
-                    OpponentScore.setText(Integer.toString(engine.player1.get_num_wins()));
+                    GA.Board.history +="Player1 Wins\n";
+                    GA.SKKU_Bot.win_plus_one();
+                    SKKU_Bot_point.setText(Integer.toString(GA.SKKU_Bot.get_num_wins()));
+                    GA.Board.printBoard();
                     JOptionPane.showMessageDialog(frame,
-                                    "YOU Lost , Your Opponent has played better");
-             
-
-                } else if (curr_score < 0) {
-                    System.out.println("Player1 looses");
-                    HighlightWinningOrLoosing();
-                    IsGameRunning = false;
-                    engine.Board.printBoard();
-                    engine.player2.win_plus_one();
-                    PlayerScore.setText(Integer.toString(engine.player2.get_num_wins()));
-                    JOptionPane.showMessageDialog(frame,
-                                    "Hurrah,YOU Won the game");
-                    
-               
-                }
-
-                if (!engine.IsMoveLeft()) {
-                    IsGameRunning = false;
-                    JOptionPane.showMessageDialog(frame, "Game DRAW ,It's better than loosing");
-                   
-                 
-                }
-
-            } 
-            
-            else {
-
-                if (engine.get_IsPlayer1Turn()) {
-
-                    bestMove = engine.findBestMove();
-
-                    if (bestMove[2] == -1) {
-                        System.out.println("Game Draw");
-                        JOptionPane.showMessageDialog(frame,
-                                "Game DRAW ,It's better than loosing");
-                        IsGameRunning = false;
-                    } else {
-
-                        if (bestMove[0] == 0 && bestMove[1] == 0) {
-                            engine.Board.board[0][0] = engine.player1.get_o_x_emp();
-                            x0_y0.setText(engine.player1.get_o_x_emp().toString());
-
-                        }
-
-                        if (bestMove[0] == 1 && bestMove[1] == 0) {
-                            engine.Board.board[1][0] = engine.player1.get_o_x_emp();
-                            x1_y0.setText(engine.player1.get_o_x_emp().toString());
-                        }
-
-                        if (bestMove[0] == 2 && bestMove[1] == 0) {
-                            engine.Board.board[2][0] = engine.player1.get_o_x_emp();
-                            x2_y0.setText(engine.player1.get_o_x_emp().toString());
-                        }
-
-                        if (bestMove[0] == 0 && bestMove[1] == 1) {
-                            engine.Board.board[0][1] = engine.player1.get_o_x_emp();
-                            x0_y1.setText(engine.player1.get_o_x_emp().toString());
-                        }
-
-                        if (bestMove[0] == 1 && bestMove[1] == 1) {
-                            engine.Board.board[1][1] = engine.player1.get_o_x_emp();
-                            x1_y1.setText(engine.player1.get_o_x_emp().toString());
-                        }
-
-                        if (bestMove[0] == 2 && bestMove[1] == 1) {
-                            engine.Board.board[2][1] = engine.player1.get_o_x_emp();
-                            x2_y1.setText(engine.player1.get_o_x_emp().toString());
-                        }
-
-                        if (bestMove[0] == 0 && bestMove[1] == 2) {
-                            engine.Board.board[0][2] = engine.player1.get_o_x_emp();
-                            x0_y2.setText(engine.player1.get_o_x_emp().toString());
-                        }
-
-                        if (bestMove[0] == 1 && bestMove[1] == 2) {
-                            engine.Board.board[1][2] = engine.player1.get_o_x_emp();
-                            x1_y2.setText(engine.player1.get_o_x_emp().toString());
-                        }
-
-                        if (bestMove[0] == 2 && bestMove[1] == 2) {
-                            engine.Board.board[2][2] = engine.player1.get_o_x_emp();
-                            x2_y2.setText(engine.player1.get_o_x_emp().toString());
-                        }
-
-                        SetPlayer2Turn();
-                        curr_score = engine.evaluate_score(0);
-                        if (curr_score > 0) {
-                            System.out.println("Player1 Wins");
-                            HighlightWinningOrLoosing();
-                            engine.player1.win_plus_one();
-                            OpponentScore.setText(Integer.toString(engine.player1.get_num_wins()));
-                            IsGameRunning = false;
-                            engine.Board.printBoard();
-                            JOptionPane.showMessageDialog(frame,
-                                    "YOU Lost , It's unbeatable Bro");
-
-                        } else if (curr_score < 0) {
-                            System.out.println("Player1 looses");
-                            IsGameRunning = false;
-                            JOptionPane.showMessageDialog(frame,
-                                    "This will never happen");
-                       
-
-                        }
-                        if (!engine.IsMoveLeft()) {
-                            JOptionPane.showMessageDialog(frame, "Game DRAW ,It's better than loosing");
-                            IsGameRunning = false;
-                        
-                           
-                        }
-                    }
+                            "You lose..");
 
                 }
-
-            }
-        }
-        System.out.println("Done");
-    }
-    
-    public int Highlight_helper(){
-        int row,col;
-        // Checking for Rows for X or O victory.
-        pieces type = pieces.emp;
-        for (row = 0; row < engine.Board.get_num_row(); row++)
-        {
-            type = engine.Board.board[row][0];
-            for(col = 0;col < engine.Board.get_num_column();col++){
-                if(engine.Board.board[row][col] != type)
-                    break;
-            }
-            
-            if(col == engine.Board.get_num_column()){
-            
-                if(type == engine.player1.get_o_x_emp()){
-                    color = "RED";
-                    return row + 1;
-                }
-                else if(type == engine.player2.get_o_x_emp()){
-                    color = "GREEN";
-                    return row + 1;
-                }
-            }
-        }
-
-        // Checking for Columns for X or O victory.
-        for (col = 0; col < engine.Board.get_num_column(); col++)
-        {
-            type = engine.Board.board[0][col];
-            for(row = 0;row < engine.Board.get_num_row();row++){
-                if(engine.Board.board[row][col] != type)
-                    break;
+                if (!GA.IsMoveLeft()) {
+                    JOptionPane.showMessageDialog(frame, "It's Draw");
                 
-            }
-            
-            if(row == engine.Board.get_num_row()){
-                            
-                if(type == engine.player1.get_o_x_emp()){
-                    color = "RED";
-                    return engine.Board.get_num_row() + col + 1;
-                }
-                else if(type == engine.player2.get_o_x_emp()){
-                    color = "GREEN";
-                    return engine.Board.get_num_row() + col + 1;
+                   
                 }
             }
+
         }
 
-        // Checking for Diagonals for X or O victory.
-        type = engine.Board.board[0][0];
-        for(row = 0;row < engine.Board.get_num_row();row++){
-            
-            if(engine.Board.board[row][row] != type)
-                break;
-            
-        }
-        if(row == engine.Board.get_num_row()){
-            
-           
-            if(type == engine.player1.get_o_x_emp()){
-               color = "RED";
-               return 7;
-            }
-            else if(type == engine.player2.get_o_x_emp()){
-                color = "GREEN";
-               return 7;
-            }
-        }
         
-        
-        row = 0;
-        col = engine.Board.get_num_column()-1;
-        type = engine.Board.board[row][col];
-        while(col >= 0){
-            if(engine.Board.board[row][col] != type)
-                break;
-            row++;
-            col--;
-        }
-        
-        if(col < 0){
-            
-            if(type == engine.player1.get_o_x_emp()){
-                color = "RED";
-               return 8;
-            }
-            else if(type == engine.player2.get_o_x_emp()){
-                color = "GREEN";
-               return 8;
-            }
-        }
-
-        return 0; 
-        
+        System.out.println("Finish");
+        GA.Board.history +="Finish\n";
     }
     
-    void HighlightWinningOrLoosing(){
-        int type = Highlight_helper();
-        if(type == 1){
-            if(color.equals("RED")){
-                x0_y0.setBackground(new java.awt.Color(244,38,38));
-                x0_y1.setBackground(new java.awt.Color(244,38,38));
-                x0_y2.setBackground(new java.awt.Color(244,38,38));
-            }
-            else{
-                x0_y0.setBackground(new java.awt.Color(73,220,82));
-                x0_y1.setBackground(new java.awt.Color(73,220,82));
-                x0_y2.setBackground(new java.awt.Color(73,220,82));
-            }
-        }
-        
-        if(type == 2){
-            if(color.equals("RED")){
-                x1_y0.setBackground(new java.awt.Color(244,38,38));
-                x1_y1.setBackground(new java.awt.Color(244,38,38));
-                x1_y2.setBackground(new java.awt.Color(244,38,38));
-            }
-            else{
-                x1_y0.setBackground(new java.awt.Color(73,220,82));
-                x1_y1.setBackground(new java.awt.Color(73,220,82));
-                x1_y2.setBackground(new java.awt.Color(73,220,82));
-            }
-        }
-        
-        if(type == 3){
-            if(color.equals("RED")){
-                x2_y0.setBackground(new java.awt.Color(244,38,38));
-                x2_y1.setBackground(new java.awt.Color(244,38,38));
-                x2_y2.setBackground(new java.awt.Color(244,38,38));
-            }
-            else{
-                x2_y0.setBackground(new java.awt.Color(73,220,82));
-                x2_y1.setBackground(new java.awt.Color(73,220,82));
-                x2_y2.setBackground(new java.awt.Color(73,220,82));
-            }
-        }
-        
-        if(type == 4){
-            if(color.equals("RED")){
-                x0_y0.setBackground(new java.awt.Color(244,38,38));
-                x1_y0.setBackground(new java.awt.Color(244,38,38));
-                x2_y0.setBackground(new java.awt.Color(244,38,38));
-            }
-            else{
-                x0_y0.setBackground(new java.awt.Color(73,220,82));
-                x1_y0.setBackground(new java.awt.Color(73,220,82));
-                x2_y0.setBackground(new java.awt.Color(73,220,82));
-            }
-        }
-        
-        if(type == 5){
-            if(color.equals("RED")){
-                x0_y1.setBackground(new java.awt.Color(244,38,38));
-                x1_y1.setBackground(new java.awt.Color(244,38,38));
-                x2_y1.setBackground(new java.awt.Color(244,38,38));
-            }
-            else{
-                x0_y1.setBackground(new java.awt.Color(73,220,82));
-                x1_y1.setBackground(new java.awt.Color(73,220,82));
-                x2_y1.setBackground(new java.awt.Color(73,220,82));
-            }
-        }
-        
-        if(type == 6){
-            if(color.equals("RED")){
-                x0_y2.setBackground(new java.awt.Color(244,38,38));
-                x1_y2.setBackground(new java.awt.Color(244,38,38));
-                x2_y2.setBackground(new java.awt.Color(244,38,38));
-            }
-            else{
-                x0_y2.setBackground(new java.awt.Color(73,220,82));
-                x1_y2.setBackground(new java.awt.Color(73,220,82));
-                x2_y2.setBackground(new java.awt.Color(73,220,82));
-            }
-        }
-        
-        if(type == 7){
-            if(color.equals("RED")){
-                x0_y0.setBackground(new java.awt.Color(244,38,38));
-                x1_y1.setBackground(new java.awt.Color(244,38,38));
-                x2_y2.setBackground(new java.awt.Color(244,38,38));
-            }
-            else{
-                x0_y0.setBackground(new java.awt.Color(73,220,82));
-                x1_y1.setBackground(new java.awt.Color(73,220,82));
-                x2_y2.setBackground(new java.awt.Color(73,220,82));
-            }
-        }
-        if(type == 8){
-            if(color.equals("RED")){
-                x0_y2.setBackground(new java.awt.Color(244,38,38));
-                x1_y1.setBackground(new java.awt.Color(244,38,38));
-                x2_y0.setBackground(new java.awt.Color(244,38,38));
-            }
-            else{
-                x0_y2.setBackground(new java.awt.Color(73,220,82));
-                x1_y1.setBackground(new java.awt.Color(73,220,82));
-                x2_y0.setBackground(new java.awt.Color(73,220,82));
-            }
-        }
-        
-    }
     
-    void ResetButtonColor(){
-        x0_y0.setBackground(new java.awt.Color(249,249,248));
-        x0_y1.setBackground(new java.awt.Color(249,249,248));
-        x0_y2.setBackground(new java.awt.Color(249,249,248));
-        x1_y0.setBackground(new java.awt.Color(249,249,248));
-        x1_y1.setBackground(new java.awt.Color(249,249,248));
-        x1_y2.setBackground(new java.awt.Color(249,249,248));
-        x2_y0.setBackground(new java.awt.Color(249,249,248));
-        x2_y1.setBackground(new java.awt.Color(249,249,248));
-        x2_y2.setBackground(new java.awt.Color(249,249,248));
+    
+    void btnColor_reset(){
+        pannel1.setBackground(new java.awt.Color(249,249,248));
+        pannel4.setBackground(new java.awt.Color(249,249,248));
+        pannel7.setBackground(new java.awt.Color(249,249,248));
+        pannel2.setBackground(new java.awt.Color(249,249,248));
+        pannel5.setBackground(new java.awt.Color(249,249,248));
+        pannel8.setBackground(new java.awt.Color(249,249,248));
+        pannel3.setBackground(new java.awt.Color(249,249,248));
+        pannel6.setBackground(new java.awt.Color(249,249,248));
+        pannel9.setBackground(new java.awt.Color(249,249,248));
         
     }
-
-    private javax.swing.JButton BackToMainMenu;
-    private javax.swing.JLabel CHOOSE_label;
-    private javax.swing.JLabel CURR_TURN_label;
-    private javax.swing.JComboBox ChoosePieceType;
-    private javax.swing.JLabel CurrentTurn;
-    private javax.swing.JButton MoveSuggestion;
-    private javax.swing.JLabel OPPONENT_label;
-    private javax.swing.JLabel OpponentScore;
-    private javax.swing.JLabel PlayerScore;
+    private javax.swing.JButton Write_History;
+    private javax.swing.JLabel SKKU_Bot;
+    private javax.swing.JLabel SKKU_Bot_point;
+    private javax.swing.JLabel You_point;
     private javax.swing.JButton ResetGame;
-    private javax.swing.JLabel SCORE_label;
+    private javax.swing.JLabel Point_Label;
     private javax.swing.JButton StartGame;
-    private javax.swing.JLabel YOU_label;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
+    private javax.swing.JLabel YOU;
+    private javax.swing.JPanel Pannel_Board;
+    private javax.swing.JPanel Pannel8;
+    private javax.swing.JPanel Pannel9;
+    private javax.swing.JPanel Banner;
+    private javax.swing.JPanel Options;
+    private javax.swing.JPanel Point_jPannel;
+    private javax.swing.JPanel Pannel1;
+    private javax.swing.JPanel Pannel2;
+    private javax.swing.JPanel Pannel3;
+    private javax.swing.JPanel Pannel4;
+    private javax.swing.JPanel Pannel7;
+    private javax.swing.JPanel Pannel5;
+    private javax.swing.JPanel Pannel6B;
+    private javax.swing.JPanel Pannel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JButton x0_y0;
-    private javax.swing.JButton x0_y1;
-    private javax.swing.JButton x0_y2;
-    private javax.swing.JButton x1_y0;
-    private javax.swing.JButton x1_y1;
-    private javax.swing.JButton x1_y2;
-    private javax.swing.JButton x2_y0;
-    private javax.swing.JButton x2_y1;
-    private javax.swing.JButton x2_y2;
+    private javax.swing.JButton pannel1;
+    private javax.swing.JButton pannel4;
+    private javax.swing.JButton pannel7;
+    private javax.swing.JButton pannel2;
+    private javax.swing.JButton pannel5;
+    private javax.swing.JButton pannel8;
+    private javax.swing.JButton pannel3;
+    private javax.swing.JButton pannel6;
+    private javax.swing.JButton pannel9;
 }
