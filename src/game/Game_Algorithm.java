@@ -1,6 +1,6 @@
 package game;
 
-import game.type.pieces;
+import game.type_of_pannel.pieces;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
@@ -51,9 +51,9 @@ public class Game_Algorithm {
             
             if(col == Board.get_num_column()){
             
-                if(type == player1.get_piece_type())
+                if(type == player1.get_o_x_emp())
                     return 10 - depth;
-                else if(type == player2.get_piece_type())
+                else if(type == player2.get_o_x_emp())
                     return depth - 10;
             }
         }
@@ -70,9 +70,9 @@ public class Game_Algorithm {
             
             if(row == Board.get_num_row()){
                             
-                if(type == player1.get_piece_type())
+                if(type == player1.get_o_x_emp())
                     return 10 - depth;
-                else if(type == player2.get_piece_type())
+                else if(type == player2.get_o_x_emp())
                     return depth - 10;
             }
         }
@@ -88,9 +88,9 @@ public class Game_Algorithm {
         if(row == Board.get_num_row()){
             
            
-            if(type == player1.get_piece_type())
+            if(type == player1.get_o_x_emp())
                 return 10 - depth;
-            else if(type == player2.get_piece_type())
+            else if(type == player2.get_o_x_emp())
                     return depth - 10;
         }
         
@@ -107,9 +107,9 @@ public class Game_Algorithm {
         
         if(col < 0){
             
-            if(type == player1.get_piece_type())
+            if(type == player1.get_o_x_emp())
                 return 10 - depth;
-            else if(type == player2.get_piece_type())
+            else if(type == player2.get_o_x_emp())
                     return depth - 10;
         }
 
@@ -153,7 +153,7 @@ public class Game_Algorithm {
                     if (Board.board[i][j] == pieces.emp)
                     {
                         // Make the move
-                        Board.board[i][j] = player1.get_piece_type();
+                        Board.board[i][j] = player1.get_o_x_emp();
 
                         // Call minimax recursively and choose
                         // the maximum value
@@ -181,7 +181,7 @@ public class Game_Algorithm {
                     if (Board.board[i][j] == pieces.emp)
                     {
                         // Make the move
-                        Board.board[i][j] = player2.get_piece_type();
+                        Board.board[i][j] = player2.get_o_x_emp();
 
                         // Call minimax recursively and choose
                         // the minimum value
@@ -217,7 +217,7 @@ public class Game_Algorithm {
                 if (Board.board[i][j] == pieces.emp)
                 {
                     // Make the move
-                    Board.board[i][j] = player1.get_piece_type();
+                    Board.board[i][j] = player1.get_o_x_emp();
 
                     // compute evaluation function for this
                     // move.

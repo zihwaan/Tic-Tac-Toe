@@ -1,6 +1,6 @@
 package game;
 
-import game.type.pieces;
+import game.type_of_pannel.pieces;
 
 public class Sam_mok {
 
@@ -12,7 +12,7 @@ public class Sam_mok {
         
         Game_Algorithm GA = new Game_Algorithm(Board,player1,player2); // execute game engine with 3 variables.
         
-        Gui_game_play GamePlay = new Gui_game_play(GA); // execute the GUI of this game
+        Gui_play_of_game GamePlay = new Gui_play_of_game(GA); // execute the GUI of this game
      
     }
     

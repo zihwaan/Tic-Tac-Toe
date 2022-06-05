@@ -1,6 +1,6 @@
 package game;
 
-import game.type.pieces;
+import game.type_of_pannel.pieces;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -19,9 +19,9 @@ import javax.swing.ImageIcon;
 import java.awt.Dialog.ModalExclusionType;
 import java.awt.Window.Type;
 
-public class Gui_game_play extends javax.swing.JFrame {
+public class Gui_play_of_game extends javax.swing.JFrame {
 
-    private Gui_Main_Menu MainMenu;
+    private Gui_manu_of_game MainMenu;
     private Game_Algorithm engine;
     private boolean IsGameRunning;
     private int curr_score;
@@ -29,25 +29,24 @@ public class Gui_game_play extends javax.swing.JFrame {
     private int gamecount;
     private String color;
 
-    public Gui_game_play(Game_Algorithm engine) {
-    	setSize(957,575);
+    public Gui_play_of_game(Game_Algorithm engine) {
     	setBackground(Color.BLACK);
     	getContentPane().setBackground(new Color(144, 238, 144));
     	setResizable(false);
         color = "NONE";
         initComponents();
         this.engine = engine;
-        MainMenu = new Gui_Main_Menu(this.engine, this);
+        MainMenu = new Gui_manu_of_game(this.engine, this);
         MainMenu.setVisible(true);
         IsGameRunning = false;
         engine.set_IsPlayer1Turn(false);
         gamecount = 0;
         if (ChoosePieceType.getSelectedItem().toString().equalsIgnoreCase("X")) {
-            engine.player2.set_piece_type(pieces.X);
-            engine.player1.set_piece_type(pieces.O);
+            engine.player2.set_o_x_emp(pieces.X);
+            engine.player1.set_o_x_emp(pieces.O);
         } else {
-            engine.player2.set_piece_type(pieces.O);
-            engine.player1.set_piece_type(pieces.X);
+            engine.player2.set_o_x_emp(pieces.O);
+            engine.player1.set_o_x_emp(pieces.X);
         }
         if (engine.get_IsPlayer1Turn()) {
             CurrentTurn.setText("Opponent's");
@@ -154,7 +153,7 @@ public class Gui_game_play extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(254, 254, 254));
         jPanel2.setBorder(new javax.swing.border.MatteBorder(null));
 
-        x0_y0.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
+        x0_y0.setFont(new java.awt.Font("Ubuntu", 1, 48));  
         x0_y0.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         x0_y0.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -178,7 +177,7 @@ public class Gui_game_play extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(254, 254, 254));
         jPanel3.setBorder(new javax.swing.border.MatteBorder(null));
 
-        x0_y1.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
+        x0_y1.setFont(new java.awt.Font("Ubuntu", 1, 48));  
         x0_y1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 x0_y1ActionPerformed(evt);
@@ -199,7 +198,7 @@ public class Gui_game_play extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(252, 252, 252));
         jPanel4.setBorder(new javax.swing.border.MatteBorder(null));
 
-        x0_y2.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
+        x0_y2.setFont(new java.awt.Font("Ubuntu", 1, 48));  
         x0_y2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 x0_y2ActionPerformed(evt);
@@ -220,7 +219,7 @@ public class Gui_game_play extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(254, 252, 250));
         jPanel5.setBorder(new javax.swing.border.MatteBorder(null));
 
-        x1_y0.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
+        x1_y0.setFont(new java.awt.Font("Ubuntu", 1, 48));  
         x1_y0.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 x1_y0ActionPerformed(evt);
@@ -241,7 +240,7 @@ public class Gui_game_play extends javax.swing.JFrame {
         jPanel6.setBackground(new java.awt.Color(253, 251, 250));
         jPanel6.setBorder(new javax.swing.border.MatteBorder(null));
 
-        x2_y0.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
+        x2_y0.setFont(new java.awt.Font("Ubuntu", 1, 48));  
         x2_y0.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 x2_y0ActionPerformed(evt);
@@ -262,7 +261,7 @@ public class Gui_game_play extends javax.swing.JFrame {
         jPanel7.setBackground(new java.awt.Color(254, 252, 250));
         jPanel7.setBorder(new javax.swing.border.MatteBorder(null));
 
-        x1_y1.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
+        x1_y1.setFont(new java.awt.Font("Ubuntu", 1, 48));  
         x1_y1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 x1_y1ActionPerformed(evt);
@@ -283,7 +282,7 @@ public class Gui_game_play extends javax.swing.JFrame {
         jPanel9.setBackground(new java.awt.Color(251, 250, 248));
         jPanel9.setBorder(new javax.swing.border.MatteBorder(null));
 
-        x1_y2.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
+        x1_y2.setFont(new java.awt.Font("Ubuntu", 1, 48));  
         x1_y2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 x1_y2ActionPerformed(evt);
@@ -319,7 +318,7 @@ public class Gui_game_play extends javax.swing.JFrame {
         jPanel10.setBackground(new java.awt.Color(251, 250, 248));
         jPanel10.setBorder(new javax.swing.border.MatteBorder(null));
 
-        x2_y1.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
+        x2_y1.setFont(new java.awt.Font("Ubuntu", 1, 48));  
         x2_y1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 x2_y1ActionPerformed(evt);
@@ -340,7 +339,7 @@ public class Gui_game_play extends javax.swing.JFrame {
         jPanel11.setBackground(new java.awt.Color(250, 248, 246));
         jPanel11.setBorder(new javax.swing.border.MatteBorder(null));
 
-        x2_y2.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
+        x2_y2.setFont(new java.awt.Font("Ubuntu", 1, 48)); 
         x2_y2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 x2_y2ActionPerformed(evt);
@@ -358,10 +357,10 @@ public class Gui_game_play extends javax.swing.JFrame {
             .addComponent(x2_y2, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
 
-        CURR_TURN_label.setFont(new Font("Arial", Font.BOLD, 36)); // NOI18N
+        CURR_TURN_label.setFont(new Font("Arial", Font.BOLD, 36));
         CURR_TURN_label.setText("Current Turn : ");
 
-        CurrentTurn.setFont(new Font("Arial", Font.ITALIC, 36)); // NOI18N
+        CurrentTurn.setFont(new Font("Arial", Font.ITALIC, 36)); 
         CurrentTurn.setText("Opponent");
 
         ResetGame.setText("Reset all!!");
@@ -379,7 +378,7 @@ public class Gui_game_play extends javax.swing.JFrame {
             }
         });
 
-        ChoosePieceType.setFont(new Font("Arial", Font.BOLD, 36)); // NOI18N
+        ChoosePieceType.setFont(new Font("Arial", Font.BOLD, 36)); 
         ChoosePieceType.setMaximumRowCount(2);
         ChoosePieceType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "O", "X" }));
         ChoosePieceType.addActionListener(new java.awt.event.ActionListener() {
@@ -388,7 +387,7 @@ public class Gui_game_play extends javax.swing.JFrame {
             }
         });
 
-        CHOOSE_label.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 24)); // NOI18N
+        CHOOSE_label.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 24)); 
         CHOOSE_label.setText("X or O  :");
 
         StartGame.setText("Start Sam-Mok!!");
@@ -405,22 +404,22 @@ public class Gui_game_play extends javax.swing.JFrame {
             }
         });
 
-        SCORE_label.setFont(new Font("Arial", Font.BOLD, 36)); // NOI18N
+        SCORE_label.setFont(new Font("Arial", Font.BOLD, 36)); 
         SCORE_label.setText("Point");
 
-        YOU_label.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        YOU_label.setFont(new java.awt.Font("Ubuntu", 1, 24));
         YOU_label.setForeground(new java.awt.Color(51, 111, 44));
         YOU_label.setText("    YOU   :");
 
-        OPPONENT_label.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        OPPONENT_label.setFont(new java.awt.Font("Ubuntu", 1, 24)); 
         OPPONENT_label.setForeground(new java.awt.Color(240, 84, 84));
         OPPONENT_label.setText("SKKU Bot : ");
 
-        PlayerScore.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        PlayerScore.setFont(new java.awt.Font("Ubuntu", 1, 24)); 
         PlayerScore.setForeground(new java.awt.Color(0, 185, 0));
         PlayerScore.setText("0");
 
-        OpponentScore.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        OpponentScore.setFont(new java.awt.Font("Ubuntu", 1, 24));  
         OpponentScore.setForeground(new java.awt.Color(215, 73, 73));
         OpponentScore.setText("0");
 
@@ -508,22 +507,22 @@ public class Gui_game_play extends javax.swing.JFrame {
             if (x1_y1.getText().isEmpty()) {
                 if (MainMenu.get_IsTwoPlayerGame()) {
                     if (engine.get_IsPlayer1Turn()) {
-                        engine.Board.board[1][1] = engine.player1.get_piece_type();
-                        x1_y1.setText(engine.player1.get_piece_type().toString());
+                        engine.Board.board[1][1] = engine.player1.get_o_x_emp();
+                        x1_y1.setText(engine.player1.get_o_x_emp().toString());
                          
                         Player1_Move();
                     } 
                     else {
-                        engine.Board.board[1][1] = engine.player2.get_piece_type();
-                        x1_y1.setText(engine.player2.get_piece_type().toString());
+                        engine.Board.board[1][1] = engine.player2.get_o_x_emp();
+                        x1_y1.setText(engine.player2.get_o_x_emp().toString());
                          Player2_Move();
                     
                     }
                 } 
                 
                 else {
-                    engine.Board.board[1][1] = engine.player2.get_piece_type();
-                    x1_y1.setText(engine.player2.get_piece_type().toString());
+                    engine.Board.board[1][1] = engine.player2.get_o_x_emp();
+                    x1_y1.setText(engine.player2.get_o_x_emp().toString());
                     Player2_Move();
                     Player1_Move();
                 }
@@ -536,19 +535,19 @@ public class Gui_game_play extends javax.swing.JFrame {
             if (x0_y0.getText().isEmpty()) {
                 if (MainMenu.get_IsTwoPlayerGame()) {
                     if (engine.get_IsPlayer1Turn()) {
-                        engine.Board.board[0][0] = engine.player1.get_piece_type();
-                        x0_y0.setText(engine.player1.get_piece_type().toString());
+                        engine.Board.board[0][0] = engine.player1.get_o_x_emp();
+                        x0_y0.setText(engine.player1.get_o_x_emp().toString());
                         Player1_Move();
                     }
                     
                     else {
-                        engine.Board.board[0][0] = engine.player2.get_piece_type();
-                        x0_y0.setText(engine.player2.get_piece_type().toString());
+                        engine.Board.board[0][0] = engine.player2.get_o_x_emp();
+                        x0_y0.setText(engine.player2.get_o_x_emp().toString());
                         Player2_Move();
                     }
                 } else {
-                    engine.Board.board[0][0] = engine.player2.get_piece_type();
-                    x0_y0.setText(engine.player2.get_piece_type().toString());
+                    engine.Board.board[0][0] = engine.player2.get_o_x_emp();
+                    x0_y0.setText(engine.player2.get_o_x_emp().toString());
 
                     Player2_Move();
                     Player1_Move();
@@ -565,21 +564,21 @@ public class Gui_game_play extends javax.swing.JFrame {
                 if (MainMenu.get_IsTwoPlayerGame()) {
 
                     if (engine.get_IsPlayer1Turn()) {
-                        engine.Board.board[2][2] = engine.player1.get_piece_type();
-                        x2_y2.setText(engine.player1.get_piece_type().toString());
+                        engine.Board.board[2][2] = engine.player1.get_o_x_emp();
+                        x2_y2.setText(engine.player1.get_o_x_emp().toString());
                         Player1_Move();
                     } 
                     else {
-                        engine.Board.board[2][2] = engine.player2.get_piece_type();
-                        x2_y2.setText(engine.player2.get_piece_type().toString());
+                        engine.Board.board[2][2] = engine.player2.get_o_x_emp();
+                        x2_y2.setText(engine.player2.get_o_x_emp().toString());
                         Player2_Move();
                     }
                 } 
                 
                 else {
 
-                    engine.Board.board[2][2] = engine.player2.get_piece_type();
-                    x2_y2.setText(engine.player2.get_piece_type().toString());
+                    engine.Board.board[2][2] = engine.player2.get_o_x_emp();
+                    x2_y2.setText(engine.player2.get_o_x_emp().toString());
 
                     Player2_Move();
                     Player1_Move();
@@ -593,21 +592,21 @@ public class Gui_game_play extends javax.swing.JFrame {
             if (x0_y1.getText().isEmpty()) {
                 if (MainMenu.get_IsTwoPlayerGame()) {
                     if (engine.get_IsPlayer1Turn()) {
-                        engine.Board.board[0][1] = engine.player1.get_piece_type();
-                        x0_y1.setText(engine.player1.get_piece_type().toString());
+                        engine.Board.board[0][1] = engine.player1.get_o_x_emp();
+                        x0_y1.setText(engine.player1.get_o_x_emp().toString());
                         Player1_Move();
                     } 
                     
                     else {
-                        engine.Board.board[0][1] = engine.player2.get_piece_type();
-                        x0_y1.setText(engine.player2.get_piece_type().toString());
+                        engine.Board.board[0][1] = engine.player2.get_o_x_emp();
+                        x0_y1.setText(engine.player2.get_o_x_emp().toString());
                         Player2_Move();
                     }
                 } 
                 
                 else {
-                    engine.Board.board[0][1] = engine.player2.get_piece_type();
-                    x0_y1.setText(engine.player2.get_piece_type().toString());
+                    engine.Board.board[0][1] = engine.player2.get_o_x_emp();
+                    x0_y1.setText(engine.player2.get_o_x_emp().toString());
 
                     Player2_Move();
                     Player1_Move();
@@ -628,11 +627,11 @@ public class Gui_game_play extends javax.swing.JFrame {
         String piece_type = ChoosePieceType.getSelectedItem().toString();
         if (!IsGameRunning) {
             if (piece_type.equalsIgnoreCase("X")) {
-                engine.player2.set_piece_type(pieces.X);
-                engine.player1.set_piece_type(pieces.O);
+                engine.player2.set_o_x_emp(pieces.X);
+                engine.player1.set_o_x_emp(pieces.O);
             } else {
-                engine.player2.set_piece_type(pieces.O);
-                engine.player1.set_piece_type(pieces.X);
+                engine.player2.set_o_x_emp(pieces.O);
+                engine.player1.set_o_x_emp(pieces.X);
             }
         } else {
             JOptionPane.showMessageDialog(frame,
@@ -640,7 +639,7 @@ public class Gui_game_play extends javax.swing.JFrame {
                     "Changing Piece Type while Game is in Progress",
                     JOptionPane.WARNING_MESSAGE);
 
-            ChoosePieceType.setSelectedItem(engine.player2.get_piece_type().toString());
+            ChoosePieceType.setSelectedItem(engine.player2.get_o_x_emp().toString());
 
         }
     }
@@ -674,21 +673,21 @@ public class Gui_game_play extends javax.swing.JFrame {
             if (x1_y0.getText().isEmpty()) {
                 if (MainMenu.get_IsTwoPlayerGame()) {
                     if (engine.get_IsPlayer1Turn()) {
-                        engine.Board.board[1][0] = engine.player1.get_piece_type();
-                        x1_y0.setText(engine.player1.get_piece_type().toString());
+                        engine.Board.board[1][0] = engine.player1.get_o_x_emp();
+                        x1_y0.setText(engine.player1.get_o_x_emp().toString());
                         Player1_Move();
                     } 
                     
                     else {
-                        engine.Board.board[1][0] = engine.player2.get_piece_type();
-                        x1_y0.setText(engine.player2.get_piece_type().toString());
+                        engine.Board.board[1][0] = engine.player2.get_o_x_emp();
+                        x1_y0.setText(engine.player2.get_o_x_emp().toString());
                         Player2_Move();
                     }
                 }
                 
                 else {
-                    engine.Board.board[1][0] = engine.player2.get_piece_type();
-                    x1_y0.setText(engine.player2.get_piece_type().toString());
+                    engine.Board.board[1][0] = engine.player2.get_o_x_emp();
+                    x1_y0.setText(engine.player2.get_o_x_emp().toString());
 
                     Player2_Move();
                     Player1_Move();
@@ -702,21 +701,21 @@ public class Gui_game_play extends javax.swing.JFrame {
             if (x0_y2.getText().isEmpty()) {
                 if (MainMenu.get_IsTwoPlayerGame()) {
                     if (engine.get_IsPlayer1Turn()) {
-                        engine.Board.board[0][2] = engine.player1.get_piece_type();
-                        x0_y2.setText(engine.player1.get_piece_type().toString());
+                        engine.Board.board[0][2] = engine.player1.get_o_x_emp();
+                        x0_y2.setText(engine.player1.get_o_x_emp().toString());
                         Player1_Move();
                     }
                     
                     else {
-                        engine.Board.board[0][2] = engine.player2.get_piece_type();
-                        x0_y2.setText(engine.player2.get_piece_type().toString());
+                        engine.Board.board[0][2] = engine.player2.get_o_x_emp();
+                        x0_y2.setText(engine.player2.get_o_x_emp().toString());
                         Player2_Move();
                     }
                 } 
                 
                 else {
-                    engine.Board.board[0][2] = engine.player2.get_piece_type();
-                    x0_y2.setText(engine.player2.get_piece_type().toString());
+                    engine.Board.board[0][2] = engine.player2.get_o_x_emp();
+                    x0_y2.setText(engine.player2.get_o_x_emp().toString());
 
                     Player2_Move();
                     Player1_Move();
@@ -730,21 +729,21 @@ public class Gui_game_play extends javax.swing.JFrame {
             if (x1_y2.getText().isEmpty()) {
                 if (MainMenu.get_IsTwoPlayerGame()) {
                     if (engine.get_IsPlayer1Turn()) {
-                        engine.Board.board[1][2] = engine.player1.get_piece_type();
-                        x1_y2.setText(engine.player1.get_piece_type().toString());
+                        engine.Board.board[1][2] = engine.player1.get_o_x_emp();
+                        x1_y2.setText(engine.player1.get_o_x_emp().toString());
                         Player1_Move();
                     } 
                     
                     else {
-                        engine.Board.board[1][2] = engine.player2.get_piece_type();
-                        x1_y2.setText(engine.player2.get_piece_type().toString());
+                        engine.Board.board[1][2] = engine.player2.get_o_x_emp();
+                        x1_y2.setText(engine.player2.get_o_x_emp().toString());
                         Player2_Move();
                     }
                 } 
                 
                 else {
-                    engine.Board.board[1][2] = engine.player2.get_piece_type();
-                    x1_y2.setText(engine.player2.get_piece_type().toString());
+                    engine.Board.board[1][2] = engine.player2.get_o_x_emp();
+                    x1_y2.setText(engine.player2.get_o_x_emp().toString());
 
                     Player2_Move();
                     Player1_Move();
@@ -758,21 +757,21 @@ public class Gui_game_play extends javax.swing.JFrame {
             if (x2_y0.getText().isEmpty()) {
                 if (MainMenu.get_IsTwoPlayerGame()) {
                     if (engine.get_IsPlayer1Turn()) {
-                        engine.Board.board[2][0] = engine.player1.get_piece_type();
-                        x2_y0.setText(engine.player1.get_piece_type().toString());
+                        engine.Board.board[2][0] = engine.player1.get_o_x_emp();
+                        x2_y0.setText(engine.player1.get_o_x_emp().toString());
                         Player1_Move();
                     } 
                     
                     else {
-                        engine.Board.board[2][0] = engine.player2.get_piece_type();
-                        x2_y0.setText(engine.player2.get_piece_type().toString());
+                        engine.Board.board[2][0] = engine.player2.get_o_x_emp();
+                        x2_y0.setText(engine.player2.get_o_x_emp().toString());
                         Player2_Move();
                     }
                 } 
                 
                 else {
-                    engine.Board.board[2][0] = engine.player2.get_piece_type();
-                    x2_y0.setText(engine.player2.get_piece_type().toString());
+                    engine.Board.board[2][0] = engine.player2.get_o_x_emp();
+                    x2_y0.setText(engine.player2.get_o_x_emp().toString());
 
                     Player2_Move();
                     Player1_Move();
@@ -786,21 +785,21 @@ public class Gui_game_play extends javax.swing.JFrame {
             if (x2_y1.getText().isEmpty()) {
                 if (MainMenu.get_IsTwoPlayerGame()) {
                     if (engine.get_IsPlayer1Turn()) {
-                        engine.Board.board[2][1] = engine.player1.get_piece_type();
-                        x2_y1.setText(engine.player1.get_piece_type().toString());
+                        engine.Board.board[2][1] = engine.player1.get_o_x_emp();
+                        x2_y1.setText(engine.player1.get_o_x_emp().toString());
                         Player1_Move();
                     }
                     
                     else {
-                        engine.Board.board[2][1] = engine.player2.get_piece_type();
-                        x2_y1.setText(engine.player2.get_piece_type().toString());
+                        engine.Board.board[2][1] = engine.player2.get_o_x_emp();
+                        x2_y1.setText(engine.player2.get_o_x_emp().toString());
                         Player2_Move();
                     }
                 } 
                 
                 else {
-                    engine.Board.board[2][1] = engine.player2.get_piece_type();
-                    x2_y1.setText(engine.player2.get_piece_type().toString());
+                    engine.Board.board[2][1] = engine.player2.get_o_x_emp();
+                    x2_y1.setText(engine.player2.get_o_x_emp().toString());
 
                     Player2_Move();
                     Player1_Move();
@@ -821,8 +820,8 @@ public class Gui_game_play extends javax.swing.JFrame {
 
             IsGameRunning = true;
             if (!MainMenu.get_IsTwoPlayerGame() && engine.get_IsPlayer1Turn()) {
-               engine.Board.board[0][0] = engine.player1.get_piece_type();
-               x0_y0.setText(engine.player1.get_piece_type().toString());
+               engine.Board.board[0][0] = engine.player1.get_o_x_emp();
+               x0_y0.setText(engine.player1.get_o_x_emp().toString());
                SetPlayer2Turn();
             }
             gamecount++;
@@ -937,8 +936,8 @@ public class Gui_game_play extends javax.swing.JFrame {
 
     private void ResetScore() {
         gamecount = 0;
-        engine.player1.reset_total_wins();
-        engine.player2.reset_total_wins();
+        engine.player1.win_to_Zero();
+        engine.player2.win_to_Zero();
         PlayerScore.setText("0");
         OpponentScore.setText(("0"));
     }
@@ -953,8 +952,8 @@ public class Gui_game_play extends javax.swing.JFrame {
             HighlightWinningOrLoosing();
             IsGameRunning = false;
             engine.Board.printBoard();
-            engine.player1.increment_total_wins();
-            OpponentScore.setText(Integer.toString(engine.player1.get_total_wins()));
+            engine.player1.win_plus_one();
+            OpponentScore.setText(Integer.toString(engine.player1.get_num_wins()));
             JOptionPane.showMessageDialog(frame,
                                     "YOU Lost , Your Opponent has played better than you");
            
@@ -965,8 +964,8 @@ public class Gui_game_play extends javax.swing.JFrame {
             System.out.println("Player2 wins");
             HighlightWinningOrLoosing();
             engine.Board.printBoard();
-            engine.player2.increment_total_wins();
-            PlayerScore.setText(Integer.toString(engine.player2.get_total_wins()));
+            engine.player2.win_plus_one();
+            PlayerScore.setText(Integer.toString(engine.player2.get_num_wins()));
             
             IsGameRunning = false;
             JOptionPane.showMessageDialog(frame,
@@ -997,8 +996,8 @@ public class Gui_game_play extends javax.swing.JFrame {
                     HighlightWinningOrLoosing();
                     IsGameRunning = false;
                     engine.Board.printBoard();
-                    engine.player1.increment_total_wins();
-                    OpponentScore.setText(Integer.toString(engine.player1.get_total_wins()));
+                    engine.player1.win_plus_one();
+                    OpponentScore.setText(Integer.toString(engine.player1.get_num_wins()));
                     JOptionPane.showMessageDialog(frame,
                                     "YOU Lost , Your Opponent has played better");
              
@@ -1008,8 +1007,8 @@ public class Gui_game_play extends javax.swing.JFrame {
                     HighlightWinningOrLoosing();
                     IsGameRunning = false;
                     engine.Board.printBoard();
-                    engine.player2.increment_total_wins();
-                    PlayerScore.setText(Integer.toString(engine.player2.get_total_wins()));
+                    engine.player2.win_plus_one();
+                    PlayerScore.setText(Integer.toString(engine.player2.get_num_wins()));
                     JOptionPane.showMessageDialog(frame,
                                     "Hurrah,YOU Won the game");
                     
@@ -1039,49 +1038,49 @@ public class Gui_game_play extends javax.swing.JFrame {
                     } else {
 
                         if (bestMove[0] == 0 && bestMove[1] == 0) {
-                            engine.Board.board[0][0] = engine.player1.get_piece_type();
-                            x0_y0.setText(engine.player1.get_piece_type().toString());
+                            engine.Board.board[0][0] = engine.player1.get_o_x_emp();
+                            x0_y0.setText(engine.player1.get_o_x_emp().toString());
 
                         }
 
                         if (bestMove[0] == 1 && bestMove[1] == 0) {
-                            engine.Board.board[1][0] = engine.player1.get_piece_type();
-                            x1_y0.setText(engine.player1.get_piece_type().toString());
+                            engine.Board.board[1][0] = engine.player1.get_o_x_emp();
+                            x1_y0.setText(engine.player1.get_o_x_emp().toString());
                         }
 
                         if (bestMove[0] == 2 && bestMove[1] == 0) {
-                            engine.Board.board[2][0] = engine.player1.get_piece_type();
-                            x2_y0.setText(engine.player1.get_piece_type().toString());
+                            engine.Board.board[2][0] = engine.player1.get_o_x_emp();
+                            x2_y0.setText(engine.player1.get_o_x_emp().toString());
                         }
 
                         if (bestMove[0] == 0 && bestMove[1] == 1) {
-                            engine.Board.board[0][1] = engine.player1.get_piece_type();
-                            x0_y1.setText(engine.player1.get_piece_type().toString());
+                            engine.Board.board[0][1] = engine.player1.get_o_x_emp();
+                            x0_y1.setText(engine.player1.get_o_x_emp().toString());
                         }
 
                         if (bestMove[0] == 1 && bestMove[1] == 1) {
-                            engine.Board.board[1][1] = engine.player1.get_piece_type();
-                            x1_y1.setText(engine.player1.get_piece_type().toString());
+                            engine.Board.board[1][1] = engine.player1.get_o_x_emp();
+                            x1_y1.setText(engine.player1.get_o_x_emp().toString());
                         }
 
                         if (bestMove[0] == 2 && bestMove[1] == 1) {
-                            engine.Board.board[2][1] = engine.player1.get_piece_type();
-                            x2_y1.setText(engine.player1.get_piece_type().toString());
+                            engine.Board.board[2][1] = engine.player1.get_o_x_emp();
+                            x2_y1.setText(engine.player1.get_o_x_emp().toString());
                         }
 
                         if (bestMove[0] == 0 && bestMove[1] == 2) {
-                            engine.Board.board[0][2] = engine.player1.get_piece_type();
-                            x0_y2.setText(engine.player1.get_piece_type().toString());
+                            engine.Board.board[0][2] = engine.player1.get_o_x_emp();
+                            x0_y2.setText(engine.player1.get_o_x_emp().toString());
                         }
 
                         if (bestMove[0] == 1 && bestMove[1] == 2) {
-                            engine.Board.board[1][2] = engine.player1.get_piece_type();
-                            x1_y2.setText(engine.player1.get_piece_type().toString());
+                            engine.Board.board[1][2] = engine.player1.get_o_x_emp();
+                            x1_y2.setText(engine.player1.get_o_x_emp().toString());
                         }
 
                         if (bestMove[0] == 2 && bestMove[1] == 2) {
-                            engine.Board.board[2][2] = engine.player1.get_piece_type();
-                            x2_y2.setText(engine.player1.get_piece_type().toString());
+                            engine.Board.board[2][2] = engine.player1.get_o_x_emp();
+                            x2_y2.setText(engine.player1.get_o_x_emp().toString());
                         }
 
                         SetPlayer2Turn();
@@ -1089,8 +1088,8 @@ public class Gui_game_play extends javax.swing.JFrame {
                         if (curr_score > 0) {
                             System.out.println("Player1 Wins");
                             HighlightWinningOrLoosing();
-                            engine.player1.increment_total_wins();
-                            OpponentScore.setText(Integer.toString(engine.player1.get_total_wins()));
+                            engine.player1.win_plus_one();
+                            OpponentScore.setText(Integer.toString(engine.player1.get_num_wins()));
                             IsGameRunning = false;
                             engine.Board.printBoard();
                             JOptionPane.showMessageDialog(frame,
@@ -1133,11 +1132,11 @@ public class Gui_game_play extends javax.swing.JFrame {
             
             if(col == engine.Board.get_num_column()){
             
-                if(type == engine.player1.get_piece_type()){
+                if(type == engine.player1.get_o_x_emp()){
                     color = "RED";
                     return row + 1;
                 }
-                else if(type == engine.player2.get_piece_type()){
+                else if(type == engine.player2.get_o_x_emp()){
                     color = "GREEN";
                     return row + 1;
                 }
@@ -1156,11 +1155,11 @@ public class Gui_game_play extends javax.swing.JFrame {
             
             if(row == engine.Board.get_num_row()){
                             
-                if(type == engine.player1.get_piece_type()){
+                if(type == engine.player1.get_o_x_emp()){
                     color = "RED";
                     return engine.Board.get_num_row() + col + 1;
                 }
-                else if(type == engine.player2.get_piece_type()){
+                else if(type == engine.player2.get_o_x_emp()){
                     color = "GREEN";
                     return engine.Board.get_num_row() + col + 1;
                 }
@@ -1178,11 +1177,11 @@ public class Gui_game_play extends javax.swing.JFrame {
         if(row == engine.Board.get_num_row()){
             
            
-            if(type == engine.player1.get_piece_type()){
+            if(type == engine.player1.get_o_x_emp()){
                color = "RED";
                return 7;
             }
-            else if(type == engine.player2.get_piece_type()){
+            else if(type == engine.player2.get_o_x_emp()){
                 color = "GREEN";
                return 7;
             }
@@ -1201,11 +1200,11 @@ public class Gui_game_play extends javax.swing.JFrame {
         
         if(col < 0){
             
-            if(type == engine.player1.get_piece_type()){
+            if(type == engine.player1.get_o_x_emp()){
                 color = "RED";
                return 8;
             }
-            else if(type == engine.player2.get_piece_type()){
+            else if(type == engine.player2.get_o_x_emp()){
                 color = "GREEN";
                return 8;
             }

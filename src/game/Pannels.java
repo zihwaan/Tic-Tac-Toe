@@ -1,6 +1,6 @@
 package game;
 
-import game.type.pieces;
+import game.type_of_pannel.pieces;
 
 public class Pannels {
 	

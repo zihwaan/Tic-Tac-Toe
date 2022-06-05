@@ -21,18 +21,13 @@ import javax.swing.JButton;
 import java.awt.Font;
 
 
-public class Gui_Main_Menu extends javax.swing.JFrame {
+public class Gui_manu_of_game extends javax.swing.JFrame {
 
     private Game_Algorithm engine;
-    private Gui_game_play GamePlay;
+    private Gui_play_of_game GamePlay;
     private boolean IsTwoPlayerGame;
 
-    /**
-     * Creates new form 
-     * @param player1
-    
-     */
-    public Gui_Main_Menu(Game_Algorithm engine,Gui_game_play GamePlay) {
+    public Gui_manu_of_game(Game_Algorithm engine,Gui_play_of_game GamePlay) {
     	setResizable(false);
     	setAutoRequestFocus(false);
     	getContentPane().setBackground(new Color(0, 128, 0));
